@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrepreneurship Development Study Cards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); }
+            50% { background: linear-gradient(135deg, #764ba2 0%, #f093fb 50%, #667eea 100%); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 3em;
+            font-weight: 700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.4); }
+            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .study-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .study-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .study-card:hover::before {
+            left: 100%;
+        }
+
+        .study-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-number {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24, #fd79a8);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3); }
+            50% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.6), 0 0 0 10px rgba(238, 90, 36, 0.1); }
+            100% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3); }
+        }
+
+        .card-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-right: 70px;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 3px solid transparent;
+            border-image: linear-gradient(90deg, #667eea, #764ba2) 1;
+            padding-bottom: 12px;
+        }
+
+        .memory-tip {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 5px solid #e67e22;
+            font-style: italic;
+            font-weight: 600;
+            color: #c0392b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-tip::before {
+            content: '💡';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            font-size: 30px;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .section-header {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 25px 0 15px 0;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+        }
+
+        .numbered-list {
+            list-style: none;
+            counter-reset: main-counter;
+        }
+
+        .numbered-list > li {
+            counter-increment: main-counter;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            padding-left: 50px;
+        }
+
+        .numbered-list > li::before {
+            content: counter(main-counter);
+            position: absolute;
+            left: -2px;
+            top: -2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .numbered-list > li:hover {
+            background: linear-gradient(135deg, #e8f4fd, #dbeafe);
+            border-left-color: #e74c3c;
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .sub-list {
+            list-style: none;
+            counter-reset: sub-counter;
+            margin-top: 15px;
+            padding-left: 25px;
+        }
+
+        .sub-list li {
+            counter-increment: sub-counter;
+            background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+            border-left: 3px solid #9b59b6;
+            font-size: 14px;
+            margin: 8px 0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .sub-list li::before {
+            content: counter(main-counter) "." counter(sub-counter);
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #9b59b6;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .highlight:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .emoji {
+            font-size: 22px;
+            margin-right: 8px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .study-card {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            .title {
+                font-size: 2.2em;
+                margin-bottom: 30px;
+            }
+
+            .card-number {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">6. New Venture Identification and Selection</h1>
+        
+        <div class="card-grid">
+            <!-- Card 1: Methods of Idea Generation -->
+            <div class="study-card">
+                <div class="card-number">1</div>
+                <h2 class="card-title"><span class="emoji">💡</span>Methods of Idea Generation</h2>
+                <div class="memory-tip">Memory Tip: "FBPDLS" - Focus, Brain, Problem, Delphi, Library, Survey</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Focus Group</span> <span class="emoji">👥</span></li>
+                    <li><span class="highlight">Brainstorming</span> <span class="emoji">🧠</span></li>
+                    <li><span class="highlight">Problem Inventory Analysis</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Delphi Technique</span> <span class="emoji">🔮</span></li>
+                    <li><span class="highlight">Library and Internet Search</span> <span class="emoji">📚</span></li>
+                    <li><span class="highlight">Survey</span> <span class="emoji">📋</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Components of Feasibility Study -->
+            <div class="study-card">
+                <div class="card-number">2</div>
+                <h2 class="card-title"><span class="emoji">📈</span>Components of Feasibility Study</h2>
+                <div class="memory-tip">Memory Tip: "MTMF" - Market, Technical, Management, Financial</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Market Component</span> <span class="emoji">🛒</span></li>
+                    <li><span class="highlight">Technical Component</span> <span class="emoji">🔧</span></li>
+                    <li><span class="highlight">Management Component</span> <span class="emoji">👔</span></li>
+                    <li><span class="highlight">Financial Component</span> <span class="emoji">💰</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 3: Factors for Market Study/Analysis -->
+            <div class="study-card">
+                <div class="card-number">3</div>
+                <h2 class="card-title"><span class="emoji">📊</span>Factors for Market Study/Analysis</h2>
+                <div class="memory-tip">Memory Tip: "DTP" - Demand & Supply, Trend, Potential consumers</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Demand and supply</span> <span class="emoji">📈📉</span></li>
+                    <li><span class="highlight">Trend</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Potential consumers</span> <span class="emoji">🎯</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 4: Project Appraisal Method -->
+            <div class="study-card">
+                <div class="card-number">4</div>
+                <h2 class="card-title"><span class="emoji">🔍</span>Project Appraisal Method</h2>
+                <div class="memory-tip">Memory Tip: "MFPPBOT" - Marketing, Financial, Projected statements, Business analysis, Operations, Technical</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Marketing Analysis</span> <span class="emoji">📈</span>
+                        <ul class="sub-list">
+                            <li>Overall Market</li>
+                            <li>Specific Market</li>
+                            <li>Competitive Factors</li>
+                            <li>Macro Environment Influence</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Financial Analysis</span> <span class="emoji">💰</span>
+                        <ul class="sub-list">
+                            <li>Start up costs</li>
+                            <li>Financial requirement</li>
+                            <li>Sources of Funds (Internal & External)</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Projected Profit and Loss Statement</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Projected Cash Flow Statement</span> <span class="emoji">💵</span></li>
+                    <li><span class="highlight">Projected Balance Sheet</span> <span class="emoji">⚖️</span></li>
+                    <li><span class="highlight">Organizational Management Analysis</span> <span class="emoji">👔</span>
+                        <ul class="sub-list">
+                            <li>Key Personnel Resources</li>
+                            <li>Human Resource Management Strategy</li>
+                            <li>Forms of Ownership & Business</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Technical or Production Analysis</span> <span class="emoji">🏭</span>
+                        <ul class="sub-list">
+                            <li>Production Process and Technology</li>
+                            <li>Resource Requirement</li>
+                            <li>Quality Assurance</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Plan and Implementation of Risk Responses</span> <span class="emoji">📊</span>
+                        <ul class="sub-list">
+                            <li>Risk avoidance</li>
+                            <li>Risk minimization</li>
+                            <li>Risk acceptance</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 5: Methods of Generating New Ideas -->
+            <div class="study-card">
+                <div class="card-number">5</div>
+                <h2 class="card-title"><span class="emoji">💡</span>Methods of Generating New Ideas</h2>
+                <div class="memory-tip">Memory Tip: "SSMRHI" - Self, Situation, Market, Mass media, Research, Hobbies, Invention</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Self Evaluation</span> <span class="emoji">🤔</span></li>
+                    <li><span class="highlight">Situation Survey</span> <span class="emoji">📊</span>
+                        <ul class="sub-list">
+                            <li>Technological Changes</li>
+                            <li>Political Legal Changes</li>
+                            <li>Socio-Cultural Changes</li>
+                            <li>Economic Changes</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Market Analysis</span> <span class="emoji">📈</span>
+                        <ul class="sub-list">
+                            <li>Government regulations</li>
+                            <li>Activities of competitors</li>
+                            <li>Demand of consumers</li>
+                            <li>Channel of distributions</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Mass media</span> <span class="emoji">📺</span></li>
+                    <li><span class="highlight">Research</span> <span class="emoji">🔬</span></li>
+                    <li><span class="highlight">Hobbies</span> <span class="emoji">🎯</span></li>
+                    <li><span class="highlight">Invention</span> <span class="emoji">⚡</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 6: Financial Components for Feasibility Study -->
+            <div class="study-card">
+                <div class="card-number">6</div>
+                <h2 class="card-title"><span class="emoji">💰</span>Financial Components for Feasibility Study</h2>
+                <div class="memory-tip">Memory Tip: "SFSPPB" - Start-up, Financial, Sources, Projected cash, Projected profit, Projected balance</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Start up costs</span> <span class="emoji">🚀</span></li>
+                    <li><span class="highlight">Financial requirement</span> <span class="emoji">💵</span></li>
+                    <li><span class="highlight">Sources of funds</span> <span class="emoji">🏦</span></li>
+                    <li><span class="highlight">Projected cash flows</span> <span class="emoji">💰</span></li>
+                    <li><span class="highlight">Projected profit and loss Statement</span> <span class="emoji">📈</span></li>
+                    <li><span class="highlight">Projected Balance Sheet</span> <span class="emoji">⚖️</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 7: Factors to be Appraised to Minimize Risk -->
+            <div class="study-card">
+                <div class="card-number">7</div>
+                <h2 class="card-title"><span class="emoji">🔍</span>Factors to be Appraised to Minimize Risk</h2>
+                <div class="memory-tip">Memory Tip: "LCTEPA" - Legal, Competition, Technology, Economy, Production, Accident</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Legal change</span> <span class="emoji">⚖️</span></li>
+                    <li><span class="highlight">Competition</span> <span class="emoji">⚔️</span></li>
+                    <li><span class="highlight">Technology</span> <span class="emoji">💻</span></li>
+                    <li><span class="highlight">Economy</span> <span class="emoji">📈</span></li>
+                    <li><span class="highlight">Production Cost</span> <span class="emoji">🏭</span></li>
+                    <li><span class="highlight">Accident and Environment Change</span> <span class="emoji">🌍</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 8: Components of Organization and Management -->
+            <div class="study-card">
+                <div class="card-number">8</div>
+                <h2 class="card-title"><span class="emoji">👔</span>Components of Organization and Management in Feasibility Study</h2>
+                <div class="memory-tip">Memory Tip: "KHF" - Key personnel, Human resource strategy, Forms of ownership</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Key Personnel Resources</span> <span class="emoji">👥</span></li>
+                    <li><span class="highlight">Human Resource Management Strategy</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Forms of Ownership & Business</span> <span class="emoji">🏢</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 9: Factors for Business Site Selection -->
+            <div class="study-card">
+                <div class="card-number">9</div>
+                <h2 class="card-title"><span class="emoji">📍</span>Factors for Business Site Selection</h2>
+                <div class="memory-tip">Memory Tip: "IARHPCLEG" - Infrastructure, Availability raw materials, Availability human resources, Proximity market, Competition, Legal, Environment, Cost, Geographic</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Infrastructure facilities</span> <span class="emoji">🏗️</span></li>
+                    <li><span class="highlight">Availability of raw materials</span> <span class="emoji">🔧</span></li>
+                    <li><span class="highlight">Availability of human resources</span> <span class="emoji">👥</span></li>
+                    <li><span class="highlight">Proximity to market</span> <span class="emoji">🎯</span></li>
+                    <li><span class="highlight">Competition</span> <span class="emoji">⚔️</span></li>
+                    <li><span class="highlight">Legal Environment</span> <span class="emoji">⚖️</span></li>
+                    <li><span class="highlight">Environment</span> <span class="emoji">🌍</span></li>
+                    <li><span class="highlight">Cost of site</span> <span class="emoji">💰</span></li>
+                    <li><span class="highlight">Geographic Environment</span> <span class="emoji">🗺️</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 10: Business Opportunity Identification Process -->
+            <div class="study-card">
+                <div class="card-number">10</div>
+                <h2 class="card-title"><span class="emoji">🔍</span>Business Opportunity Identification Process</h2>
+                <div class="memory-tip">Memory Tip: "IDS" - Identifying sources, Determining methods, Selection of ideas</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Identifying Sources of generating new ideas</span> <span class="emoji">💡</span></li>
+                    <li><span class="highlight">Determining methods of generating new ideas</span> <span class="emoji">🛠️</span></li>
+                    <li><span class="highlight">Selection of new ideas</span> <span class="emoji">✅</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 11: Methods of Generating New Business Ideas -->
+            <div class="study-card">
+                <div class="card-number">11</div>
+                <h2 class="card-title"><span class="emoji">🧠</span>Methods of Generating New Business Ideas</h2>
+                <div class="memory-tip">Memory Tip: "FBRPSBCC" - Focus, Brainstorming, Reverse, Problem, Scientific, Big dream, Checklist, Collection</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Focus groups</span> <span class="emoji">👥</span></li>
+                    <li><span class="highlight">Brainstorming</span> <span class="emoji">💭</span></li>
+                    <li><span class="highlight">Reverse Brainstorming</span> <span class="emoji">🔄</span></li>
+                    <li><span class="highlight">Problem Inventory Analysis</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Scientific Method</span> <span class="emoji">🔬</span></li>
+                    <li><span class="highlight">Big Dream Approach</span> <span class="emoji">💫</span></li>
+                    <li><span class="highlight">Checklist Method</span> <span class="emoji">✔️</span></li>
+                    <li><span class="highlight">Collection Notebook Method</span> <span class="emoji">📝</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 12: Selection of Best Business Ideas -->
+            <div class="study-card">
+                <div class="card-number">12</div>
+                <h2 class="card-title"><span class="emoji">⭐</span>Selection of Best Business Ideas</h2>
+                <div class="memory-tip">Memory Tip: "PSPR + PMR" - Preliminary, SWOT, Profit, Risk + Promising, Marginal, Reject</div>
+
+                <h3 class="section-header">🔍 Evaluation of Ideas</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Preliminary screening</span> <span class="emoji">🔍</span></li>
+                    <li><span class="highlight">SWOT Analysis</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Profit test</span> <span class="emoji">💰</span></li>
+                    <li><span class="highlight">Risk test</span> <span class="emoji">⚠️</span></li>
+                </ul>
+
+                <h3 class="section-header">✅ Selection of Best Ideas</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Promising ideas</span> <span class="emoji">🌟</span></li>
+                    <li><span class="highlight">Marginal Ideas</span> <span class="emoji">⚖️</span></li>
+                    <li><span class="highlight">Reject ideas</span> <span class="emoji">❌</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+   <div style="text-align: center; margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px;">
+            <h2 style="color: white; margin-bottom: 15px;">🎯 Quick Review Summary</h2>
+            <p style="color: white; font-size: 18px; line-height: 1.6;">
+                <strong>Chapter 4:</strong> Entrepreneurial Risk & Stress<br>
+                <strong>Total Cards:</strong> 3 | <strong>Total Topics:</strong> 13 concepts<br>
+                <strong>Numbering System:</strong> 4.1 (Sources of Stress) → 4.2 (Minimize Stress) → 4.3 (Types of Risk)<br>
+                <strong>Study Tip:</strong> Remember the 4 stress sources, 5 stress minimization methods, and 4 risk types for comprehensive understanding!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.study-card');
+            
+            // Card flip animation on click
+            cards.forEach((card, index) => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.numbered-list li')) {
+                        this.style.transform = 'rotateY(180deg) scale(1.05)';
+                        setTimeout(() => {
+                            this.style.transform = 'rotateY(0deg) scale(1)';
+                        }, 600);
+                    }
+                });
+
+                // Staggered entrance animation
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, index * 150);
+            });
+
+            // Initialize cards with hidden state
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px) scale(0.9)';
+                card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+
+            // Interactive list items
+            const numberedItems = document.querySelectorAll('.numbered-list li');
+            numberedItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    // Remove active class from all items
+                    numberedItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.style.background = '';
+                    });
+                    
+                    // Add active class and styling
+                    this.classList.add('active');
+                    this.style.background = 'linear-gradient(135deg, #d4edda, #c3e6cb)';
+                    this.style.borderLeft = '4px solid #28a745';
+                    
+                    // Create ripple effect
+                    const ripple = document.createElement('div');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(40, 167, 69, 0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.width = ripple.style.height = '20px';
+                    ripple.style.marginLeft = ripple.style.marginTop = '-10px';
+                    
+                    this.style.position = 'relative';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        if (ripple.parentNode) {
+                            ripple.parentNode.removeChild(ripple);
+                        }
+                    }, 600);
+                    
+                    setTimeout(() => {
+                        this.style.background = '';
+                        this.style.borderLeft = '4px solid #667eea';
+                        this.classList.remove('active');
+                    }, 2000);
+                });
+
+                // Hover effects for list items
+                item.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateX(10px) scale(1.02)';
+                        this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                    }
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateX(0) scale(1)';
+                        this.style.boxShadow = '';
+                    }
+                });
+            });
+
+            // Section header interactions
+            const sectionHeaders = document.querySelectorAll('.section-header');
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const section = this.nextElementSibling;
+                    if (section && section.classList.contains('numbered-list')) {
+                        // Highlight section
+                        section.style.border = '3px solid #667eea';
+                        section.style.borderRadius = '15px';
+                        section.style.padding = '15px';
+                        section.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1))';
+                        
+                        // Animate section items
+                        const items = section.querySelectorAll('li');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.style.transform = 'scale(1.05)';
+                                item.style.background = 'linear-gradient(135deg, #e3f2fd, #bbdefb)';
+                                setTimeout(() => {
+                                    item.style.transform = 'scale(1)';
+                                    item.style.background = '';
+                                }, 200);
+                            }, index * 100);
+                        });
+                        
+                        setTimeout(() => {
+                            section.style.border = '';
+                            section.style.borderRadius = '';
+                            section.style.padding = '';
+                            section.style.background = '';
+                        }, 3000);
+                    }
+                });
+            });
+
+            // Add CSS for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+                
+                .highlight:hover {
+                    animation: glow 1s ease-in-out infinite alternate;
+                }
+                
+                @keyframes glow {
+                    from { box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+                    to { box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+<script src="footer.js"></script>
+</body>   
+</html>

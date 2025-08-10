@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrepreneurship Development Study Cards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); }
+            50% { background: linear-gradient(135deg, #764ba2 0%, #f093fb 50%, #667eea 100%); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 3em;
+            font-weight: 700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.4); }
+            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .study-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .study-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .study-card:hover::before {
+            left: 100%;
+        }
+
+        .study-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-number {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24, #fd79a8);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3); }
+            50% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.6), 0 0 0 10px rgba(238, 90, 36, 0.1); }
+            100% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3); }
+        }
+
+        .card-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-right: 70px;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 3px solid transparent;
+            border-image: linear-gradient(90deg, #667eea, #764ba2) 1;
+            padding-bottom: 12px;
+        }
+
+        .memory-tip {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 5px solid #e67e22;
+            font-style: italic;
+            font-weight: 600;
+            color: #c0392b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-tip::before {
+            content: '💡';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            font-size: 30px;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .section-header {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 25px 0 15px 0;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+        }
+
+        .numbered-list {
+            list-style: none;
+            counter-reset: main-counter;
+        }
+
+        .numbered-list > li {
+            counter-increment: main-counter;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            padding-left: 50px;
+        }
+
+        .numbered-list > li::before {
+            content: counter(main-counter);
+            position: absolute;
+            left: -2px;
+            top: -2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .numbered-list > li:hover {
+            background: linear-gradient(135deg, #e8f4fd, #dbeafe);
+            border-left-color: #e74c3c;
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .sub-list {
+            list-style: none;
+            counter-reset: sub-counter;
+            margin-top: 15px;
+            padding-left: 0px;
+        }
+
+        .sub-list li {
+            counter-increment: sub-counter;
+            background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+            border-left: 3px solid #9b59b6;
+            font-size: 14px;
+            margin: 8px 0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            position: relative;
+            padding-left: 45px;
+        }
+
+        .sub-list li::before {
+            content: counter(main-counter) "." counter(sub-counter);
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #9b59b6;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .highlight:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .emoji {
+            font-size: 22px;
+            margin-right: 8px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .study-card {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            .title {
+                font-size: 2.2em;
+                margin-bottom: 30px;
+            }
+
+            .card-number {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Approaches to Entrepreneurship</h1>
+        
+        <div class="card-grid">
+            <!-- Card 1: Schools of Thought -->
+            <div class="study-card">
+                <div class="card-number">1</div>
+                <h2 class="card-title"><span class="emoji">🏫</span>Schools of Thought</h2>
+                <div class="memory-tip">Memory Tip: "EFDTV" - Environmental, Financial, Displacement, Trait, Venture</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Environmental School of Thought</span> <span class="emoji">🌍</span>
+                        <ul class="sub-list">
+                            <li>Innovation</li>
+                            <li>Social Group</li>
+                            <li>Governmental Policies</li>
+                            <li>Others</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Financial/Capital School of Thought</span> <span class="emoji">💰</span>
+                        <ul class="sub-list">
+                            <li>Business Start-up</li>
+                            <li>Business Growth</li>
+                            <li>Business Decline</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Displacement School of Thought</span> <span class="emoji">🔄</span>
+                        <ul class="sub-list">
+                            <li>Cultural Displacement</li>
+                            <li>Economic Displacement</li>
+                            <li>Political Displacement</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Entrepreneurial Trait School of Thought</span> <span class="emoji">🎯</span>
+                        <ul class="sub-list">
+                            <li>Achievement</li>
+                            <li>Creativity</li>
+                            <li>Determination</li>
+                            <li>Technological Knowledge</li>
+                            <li>Family Development</li>
+                            <li>Educational Development</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Venture Opportunity School of Thought</span> <span class="emoji">💼</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Process Approaches -->
+            <div class="study-card">
+                <div class="card-number">2</div>
+                <h2 class="card-title"><span class="emoji">⚙️</span>Process Approaches</h2>
+                <div class="memory-tip">Memory Tip: "IEM" - Integrative, Entrepreneurial assessment, Multidimensional</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Integrative Approach</span> <span class="emoji">🔄</span></li>
+                    <li><span class="highlight">Entrepreneurial Assessment Approach</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Multidimensional Approach</span> <span class="emoji">🌐</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 3: Assessment Stages -->
+            <div class="study-card">
+                <div class="card-number">3</div>
+                <h2 class="card-title"><span class="emoji">🎯</span>Entrepreneurial Assessment Stages</h2>
+                <div class="memory-tip">Memory Tip: "PEML" - Prior, Early, Mid, Late career stages</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Prior Experience Stage</span> <span class="emoji">📚</span></li>
+                    <li><span class="highlight">Early Career Stage</span> <span class="emoji">🌱</span></li>
+                    <li><span class="highlight">Mid Career Stage</span> <span class="emoji">📈</span></li>
+                    <li><span class="highlight">Late Career Stage</span> <span class="emoji">🏆</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 4: Motivation -->
+            <div class="study-card">
+                <div class="card-number">4</div>
+                <h2 class="card-title"><span class="emoji">🚀</span>Entrepreneurial Motivation</h2>
+                <div class="memory-tip">Memory Tip: "AAP" - Achievement, Affiliation, Power</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Need for Achievement</span> <span class="emoji">🏅</span></li>
+                    <li><span class="highlight">Need for Affiliation</span> <span class="emoji">🤝</span></li>
+                    <li><span class="highlight">Need for Power</span> <span class="emoji">⚡</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 5: Mobility Factors -->
+            <div class="study-card">
+                <div class="card-number">5</div>
+                <h2 class="card-title"><span class="emoji">🌊</span>Factors Influencing Entrepreneurial Mobility</h2>
+                <div class="memory-tip">Memory Tip: "ESPGCO" - Economic, Social, Psychological, Competitive, Government, Opportunity</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Economic Factor</span> <span class="emoji">💰</span></li>
+                    <li><span class="highlight">Social Factor</span> <span class="emoji">👥</span></li>
+                    <li><span class="highlight">Psychological Factors</span> <span class="emoji">🧠</span></li>
+                    <li><span class="highlight">Competitive Factors</span> <span class="emoji">⚔️</span></li>
+                    <li><span class="highlight">Governmental Factors</span> <span class="emoji">🏛️</span></li>
+                    <li><span class="highlight">Opportunity Factor</span> <span class="emoji">🎯</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 6: Multidimensional Approach -->
+            <div class="study-card">
+                <div class="card-number">6</div>
+                <h2 class="card-title"><span class="emoji">🌐</span>Multidimensional Approach</h2>
+                <div class="memory-tip">Memory Tip: "IEOP" - Individual, Environmental, Organizational, Process Dimensions</div>
+
+                <h3 class="section-header">6.1 👤 Individual Dimension</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Needs for Achievement</span> <span class="emoji">🏅</span></li>
+                    <li><span class="highlight">Previous Work Experience</span> <span class="emoji">💼</span></li>
+                    <li><span class="highlight">Locus of Control: Internal or External</span> <span class="emoji">🎯</span></li>
+                    <li><span class="highlight">Risk Bearing Propensity</span> <span class="emoji">⚡</span></li>
+                    <li><span class="highlight">Age</span> <span class="emoji">📅</span></li>
+                    <li><span class="highlight">Education and Skills</span> <span class="emoji">🎓</span></li>
+                </ul>
+
+                <h3 class="section-header">6.2 🌍 Environmental Dimension</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Availability of Human Resource</span> <span class="emoji">👥</span></li>
+                    <li><span class="highlight">Availability of Physical Resources</span> <span class="emoji">🔧</span></li>
+                    <li><span class="highlight">Accessibility of Market and Customers</span> <span class="emoji">🛒</span></li>
+                    <li><span class="highlight">Transportation Facilities</span> <span class="emoji">🚚</span></li>
+                    <li><span class="highlight">Population and Lifestyle</span> <span class="emoji">👫</span></li>
+                    <li><span class="highlight">Government Policies & Regulations</span> <span class="emoji">📜</span></li>
+                    <li><span class="highlight">Financial Infrastructure</span> <span class="emoji">💰</span></li>
+                </ul>
+
+                <h3 class="section-header">6.3 🏢 Organizational Dimension</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Type of Firm</span> <span class="emoji">🏪</span>
+                        <ul class="sub-list">
+                            <li>Sole Trading</li>
+                            <li>Partnership</li>
+                            <li>Co-operative</li>
+                            <li>Company</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Barriers to Entry</span> <span class="emoji">🚧</span></li>
+                    <li><span class="highlight">Entrepreneurial Environment in Organization</span> <span class="emoji">🌟</span></li>
+                    <li><span class="highlight">Organizational Structure</span> <span class="emoji">🏗️</span></li>
+                    <li><span class="highlight">Organizational Goal</span> <span class="emoji">🎯</span></li>
+                    <li><span class="highlight">Business Plan and Strategy</span> <span class="emoji">📋</span></li>
+                </ul>
+
+                <h3 class="section-header">6.4 ⚙️ Process Dimension</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Searching Business Feasibility</span> <span class="emoji">🔍</span></li>
+                    <li><span class="highlight">Response to Nation and Society</span> <span class="emoji">🤝</span></li>
+                    <li><span class="highlight">Maximum Utilization of Available Resources</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Producing Goods and Services</span> <span class="emoji">🏭</span></li>
+                    <li><span class="highlight">Marketing Goods and Services</span> <span class="emoji">📈</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.study-card');
+            
+            // Card flip animation on click
+            cards.forEach((card, index) => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.numbered-list li')) {
+                        this.style.transform = 'rotateY(180deg) scale(1.05)';
+                        setTimeout(() => {
+                            this.style.transform = 'rotateY(0deg) scale(1)';
+                        }, 600);
+                    }
+                });
+
+                // Staggered entrance animation
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, index * 150);
+            });
+
+            // Initialize cards with hidden state
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px) scale(0.9)';
+                card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+
+            // Interactive list items
+            const numberedItems = document.querySelectorAll('.numbered-list li');
+            numberedItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    // Remove active class from all items
+                    numberedItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.style.background = '';
+                    });
+                    
+                    // Add active class and styling
+                    this.classList.add('active');
+                    this.style.background = 'linear-gradient(135deg, #d4edda, #c3e6cb)';
+                    this.style.borderLeft = '4px solid #28a745';
+                    
+                    // Create ripple effect
+                    const ripple = document.createElement('div');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(40, 167, 69, 0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.width = ripple.style.height = '20px';
+                    ripple.style.marginLeft = ripple.style.marginTop = '-10px';
+                    
+                    this.style.position = 'relative';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        if (ripple.parentNode) {
+                            ripple.parentNode.removeChild(ripple);
+                        }
+                    }, 600);
+                    
+                    setTimeout(() => {
+                        this.style.background = '';
+                        this.style.borderLeft = '4px solid #667eea';
+                        this.classList.remove('active');
+                    }, 2000);
+                });
+
+                // Hover effects for list items
+                item.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateX(10px) scale(1.02)';
+                        this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                    }
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateX(0) scale(1)';
+                        this.style.boxShadow = '';
+                    }
+                });
+            });
+
+            // Section header interactions
+            const sectionHeaders = document.querySelectorAll('.section-header');
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const section = this.nextElementSibling;
+                    if (section && section.classList.contains('numbered-list')) {
+                        // Highlight section
+                        section.style.border = '3px solid #667eea';
+                        section.style.borderRadius = '15px';
+                        section.style.padding = '15px';
+                        section.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1))';
+                        
+                        // Animate section items
+                        const items = section.querySelectorAll('li');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.style.transform = 'scale(1.05)';
+                                item.style.background = 'linear-gradient(135deg, #e3f2fd, #bbdefb)';
+                                setTimeout(() => {
+                                    item.style.transform = 'scale(1)';
+                                    item.style.background = '';
+                                }, 200);
+                            }, index * 100);
+                        });
+                        
+                        setTimeout(() => {
+                            section.style.border = '';
+                            section.style.borderRadius = '';
+                            section.style.padding = '';
+                            section.style.background = '';
+                        }, 3000);
+                    }
+                });
+            });
+
+            // Add CSS for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+                
+                .highlight:hover {
+                    animation: glow 1s ease-in-out infinite alternate;
+                }
+                
+                @keyframes glow {
+                    from { box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+                    to { box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+<script src="footer.js"></script>
+</body>   
+</html>

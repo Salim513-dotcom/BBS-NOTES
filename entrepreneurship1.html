@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrepreneurship Development Study Cards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); }
+            50% { background: linear-gradient(135deg, #764ba2 0%, #f093fb 50%, #667eea 100%); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 3em;
+            font-weight: 700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.4); }
+            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .study-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .study-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .study-card:hover::before {
+            left: 100%;
+        }
+
+        .study-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-number {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24, #fd79a8);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3); }
+            50% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.6), 0 0 0 10px rgba(238, 90, 36, 0.1); }
+            100% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3); }
+        }
+
+        .card-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-right: 70px;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 3px solid transparent;
+            border-image: linear-gradient(90deg, #667eea, #764ba2) 1;
+            padding-bottom: 12px;
+        }
+
+        .memory-tip {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 5px solid #e67e22;
+            font-style: italic;
+            font-weight: 600;
+            color: #c0392b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-tip::before {
+            content: '💡';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            font-size: 30px;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .section-header {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 25px 0 15px 0;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+        }
+
+        .numbered-list {
+            list-style: none;
+            counter-reset: main-counter;
+        }
+
+        .numbered-list > li {
+            counter-increment: main-counter;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .numbered-list > li::before {
+            content: counter(main-counter);
+            position: absolute;
+            left: -2px;
+            top: -2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .numbered-list > li:hover {
+            background: linear-gradient(135deg, #e8f4fd, #dbeafe);
+            border-left-color: #e74c3c;
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .sub-list {
+            list-style: none;
+            counter-reset: sub-counter;
+            margin-top: 15px;
+            padding-left: 25px;
+        }
+
+        .sub-list li {
+            counter-increment: sub-counter;
+            background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+            border-left: 3px solid #9b59b6;
+            font-size: 14px;
+            margin: 8px 0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .sub-list li::before {
+            content: counter(main-counter) "." counter(sub-counter);
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #9b59b6;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .highlight:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .emoji {
+            font-size: 22px;
+            margin-right: 8px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .study-card {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            .title {
+                font-size: 2.2em;
+                margin-bottom: 30px;
+            }
+
+            .card-number {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">1. Introduction to Entrepreneurship</h1>
+        
+        <div class="card-grid">
+            <!-- Card 1: Functions of Entrepreneurship -->
+            <div class="study-card">
+                <div class="card-number">1</div>
+                <h2 class="card-title"><span class="emoji">🎯</span>Functions of Entrepreneurship</h2>
+                <div class="memory-tip">Memory Tip: "OBISM" - Opportunity, Business, Implementation, Start-up, Management</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Opportunity analysis</span> <span class="emoji">🔍</span></li>
+                    <li><span class="highlight">Business plan development</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Implementation of business plan</span> <span class="emoji">⚙️</span></li>
+                    <li><span class="highlight">Start-up the business</span> <span class="emoji">🚀</span></li>
+                    <li><span class="highlight">Management of resources</span> <span class="emoji">💼</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Role in Economic Development -->
+            <div class="study-card">
+                <div class="card-number">2</div>
+                <h2 class="card-title"><span class="emoji">🌍</span>Role in Economic Development</h2>
+                <div class="memory-tip">Memory Tip: "EPIC-BUSUR" - Employment, Productivity, Industrialization, Capital - Balanced, Utilization, Standards, Self-dependence, Utilization, Revenue</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Employment Generation</span> <span class="emoji">👥</span></li>
+                    <li><span class="highlight">Increases Productivity</span> <span class="emoji">📈</span></li>
+                    <li><span class="highlight">Export Promotion</span> <span class="emoji">🌏</span></li>
+                    <li><span class="highlight">Industrialization</span> <span class="emoji">🏭</span></li>
+                    <li><span class="highlight">Increase Gross Domestic Production</span> <span class="emoji">💰</span></li>
+                    <li><span class="highlight">Better Standards of Living</span> <span class="emoji">🏡</span></li>
+                    <li><span class="highlight">Capital Formation</span> <span class="emoji">🏦</span></li>
+                    <li><span class="highlight">Self-dependence</span> <span class="emoji">🎯</span></li>
+                    <li><span class="highlight">Utilization of Available Resources</span> <span class="emoji">🔧</span></li>
+                    <li><span class="highlight">Revenue Increment</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Balanced Development</span> <span class="emoji">⚖️</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 3: Types of Entrepreneurs -->
+            <div class="study-card">
+                <div class="card-number">3</div>
+                <h2 class="card-title"><span class="emoji">👥</span>Types of Entrepreneurs</h2>
+                <div class="memory-tip">Memory Tip: "FING" - Force, Innovation, Nature, Group Behavior</div>
+
+                <h3 class="section-header">🎭 By Force Group</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Women Entrepreneurs</span> <span class="emoji">👩‍💼</span></li>
+                    <li><span class="highlight">Minority Entrepreneurs</span> <span class="emoji">🤝</span></li>
+                    <li><span class="highlight">Immigrant Entrepreneurs</span> <span class="emoji">🌍</span></li>
+                    <li><span class="highlight">Intrapreneurs/Corporate</span> <span class="emoji">🏢</span></li>
+                    <li><span class="highlight">Part-time Entrepreneurs</span> <span class="emoji">⏰</span></li>
+                </ul>
+
+                <h3 class="section-header">🏭 By Nature of Business</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Industrial Entrepreneurs</span> <span class="emoji">🏭</span></li>
+                    <li><span class="highlight">Trading Entrepreneurs</span> <span class="emoji">🛒</span></li>
+                    <li><span class="highlight">Agricultural Entrepreneurs</span> <span class="emoji">🌾</span></li>
+                </ul>
+
+                <h3 class="section-header">💡 By Innovation Level</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Innovation Entrepreneurs</span> <span class="emoji">🔬</span></li>
+                    <li><span class="highlight">Imitative Entrepreneurs</span> <span class="emoji">📋</span></li>
+                    <li><span class="highlight">Fabian Entrepreneurs</span> <span class="emoji">🐌</span></li>
+                    <li><span class="highlight">Drone Entrepreneurs</span> <span class="emoji">🚁</span></li>
+                    <li><span class="highlight">Forced Entrepreneurs</span> <span class="emoji">⚡</span></li>
+                    <li><span class="highlight">Empire Builder Entrepreneurs</span> <span class="emoji">🏰</span></li>
+                </ul>
+
+                <h3 class="section-header">🎪 By Behavior Pattern</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Sole Entrepreneurs</span> <span class="emoji">👤</span></li>
+                    <li><span class="highlight">Active Partner Entrepreneurs</span> <span class="emoji">🤝</span></li>
+                    <li><span class="highlight">Inventor Entrepreneurs</span> <span class="emoji">🔧</span></li>
+                    <li><span class="highlight">Challenger Entrepreneurs</span> <span class="emoji">⚔️</span></li>
+                    <li><span class="highlight">Buyer Entrepreneurs</span> <span class="emoji">💳</span></li>
+                    <li><span class="highlight">Life-time Entrepreneurs</span> <span class="emoji">🌟</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 4: Governmental Policies -->
+            <div class="study-card">
+                <div class="card-number">4</div>
+                <h2 class="card-title"><span class="emoji">🏛️</span>Governmental Policies & Actions</h2>
+                <div class="memory-tip">Memory Tip: "AIEP" - Aid economy, Impact industry, Export increase, Promote FDI</div>
+
+                <h3 class="section-header">🎯 Nepal Government Objectives</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Aid economy through entrepreneurship</span> <span class="emoji">💰</span></li>
+                    <li><span class="highlight">Increase impact of industry in balanced regional development</span> <span class="emoji">🌍</span></li>
+                    <li><span class="highlight">Increase export by improving quality & competitiveness</span> <span class="emoji">📦</span></li>
+                    <li><span class="highlight">Promote foreign direct investment in industrial sector</span> <span class="emoji">🌐</span></li>
+                </ul>
+
+                <h3 class="section-header">💼 Economic Factors</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Capital</span> <span class="emoji">💵</span></li>
+                    <li><span class="highlight">Human Resources</span> <span class="emoji">👥</span></li>
+                    <li><span class="highlight">Raw Materials</span> <span class="emoji">🔧</span></li>
+                    <li><span class="highlight">Market Access</span> <span class="emoji">🛒</span></li>
+                    <li><span class="highlight">Infrastructure</span> <span class="emoji">🏗️</span></li>
+                    <li><span class="highlight">Economic System</span> <span class="emoji">💹</span></li>
+                    <li><span class="highlight">Franchise Opportunities</span> <span class="emoji">🏪</span></li>
+                    <li><span class="highlight">Competition Environment</span> <span class="emoji">⚔️</span></li>
+                </ul>
+
+                <h3 class="section-header">🔬 Non-Economic Factors</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Technology</span> <span class="emoji">💻</span></li>
+                    <li><span class="highlight">Political Factors</span> <span class="emoji">🏛️</span></li>
+                    <li><span class="highlight">Government Policies</span> <span class="emoji">📜</span></li>
+                    <li><span class="highlight">Government Activities</span> <span class="emoji">🎭</span></li>
+                    <li><span class="highlight">Good Governance</span> <span class="emoji">✅</span></li>
+                    <li><span class="highlight">Social Factors</span> <span class="emoji">👫</span></li>
+                    <li><span class="highlight">Psychological Factors</span> <span class="emoji">🧠</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 5: Characteristics of Entrepreneurship -->
+            <div class="study-card">
+                <div class="card-number">5</div>
+                <h2 class="card-title"><span class="emoji">⭐</span>Characteristics of Entrepreneurship</h2>
+                <div class="memory-tip">Memory Tip: "CHRW" - Creation, Hard work, Risk, Reward</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Creation of new venture</span> <span class="emoji">🚀</span>
+                        <ul class="sub-list">
+                            <li>Production of new goods or services</li>
+                            <li>Discovery of new production methods</li>
+                            <li>New market expansion</li>
+                            <li>Acquisition of new raw material sources</li>
+                            <li>Develop new business activities</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Hard Work & Dedication</span> <span class="emoji">💪</span></li>
+                    <li><span class="highlight">Risk Bearing Capacity</span> <span class="emoji">⚡</span></li>
+                    <li><span class="highlight">Reward System</span> <span class="emoji">🏆</span>
+                        <ul class="sub-list">
+                            <li>Financial Rewards</li>
+                            <li>Non-financial Rewards</li>
+                            <li>Economic Activity Benefits</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 6: Functions of Entrepreneurs -->
+            <div class="study-card">
+                <div class="card-number">6</div>
+                <h2 class="card-title"><span class="emoji">⚙️</span>Functions of Entrepreneurs</h2>
+                <div class="memory-tip">Memory Tip: "PODCR" - Planning, Organizing, Directing, Controlling, Relationships</div>
+            
+                <ul class="numbered-list">
+                    <li><span class="highlight">Planning</span> <span class="emoji">📋</span></li>
+                    <li><span class="highlight">Organizing</span> <span class="emoji">🗂️</span></li>
+                    <li><span class="highlight">Directing</span> <span class="emoji">🎯</span></li>
+                    <li><span class="highlight">Controlling</span> <span class="emoji">🎮</span></li>
+                    <li><span class="highlight">Relationship Management</span> <span class="emoji">🤝</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 7: Problems Faced by Women Entrepreneurship -->
+            <div class="study-card">
+                <div class="card-number">7</div>
+                <h2 class="card-title"><span class="emoji">🚧</span>Problems Faced by Women Entrepreneurs</h2>
+                <div class="memory-tip">Memory Tip: "FLBM-LRCF" - Financial, Lack of knowledge, Business relations, Mobility - Limited risk, Competition, Family</div>
+            
+                <ul class="numbered-list">
+                    <li><span class="highlight">Financial Problems</span> <span class="emoji">💸</span></li>
+                    <li><span class="highlight">Lack of Knowledge and Experience</span> <span class="emoji">📚</span></li>
+                    <li><span class="highlight">Business Relationship Challenges</span> <span class="emoji">🤝</span></li>
+                    <li><span class="highlight">Limited Mobility</span> <span class="emoji">🚶‍♀️</span></li>
+                    <li><span class="highlight">Lack of Risk-bearing Ability</span> <span class="emoji">⚠️</span></li>
+                    <li><span class="highlight">Market Competition</span> <span class="emoji">⚔️</span></li>
+                    <li><span class="highlight">Lack of Managerial Skills</span> <span class="emoji">📊</span></li>
+                    <li><span class="highlight">Family Responsibility Burden</span> <span class="emoji">👪</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 8: Qualities of Successful Entrepreneur -->
+            <div class="study-card">
+                <div class="card-number">8</div>
+                <h2 class="card-title"><span class="emoji">🏆</span>Qualities of Successful Entrepreneur</h2>
+                <div class="memory-tip">Memory Tip: "24 Golden Qualities" - Risk, Innovation, Organization, Achievement...</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Risk Bearer</span> <span class="emoji">🎯</span></li>
+                    <li><span class="highlight">Innovator</span> <span class="emoji">💡</span></li>
+                    <li><span class="highlight">Organizer</span> <span class="emoji">🗂️</span></li>
+                    <li><span class="highlight">Creator</span> <span class="emoji">🎨</span></li>
+                    <li><span class="highlight">Achievement Motivated</span> <span class="emoji">🎖️</span></li>
+                    <li><span class="highlight">Technically Competent</span> <span class="emoji">🔧</span></li>
+                    <li><span class="highlight">Self Confident</span> <span class="emoji">💪</span></li>
+                    <li><span class="highlight">Socially Responsible</span> <span class="emoji">🤝</span></li>
+                    <li><span class="highlight">Optimistic</span> <span class="emoji">😊</span></li>
+                    <li><span class="highlight">Leadership Capability</span> <span class="emoji">👑</span></li>
+                    <li><span class="highlight">Mental Ability</span> <span class="emoji">🧠</span></li>
+                    <li><span class="highlight">Human Relation Ability</span> <span class="emoji">👥</span></li>
+                    <li><span class="highlight">Communication Skills</span> <span class="emoji">💬</span></li>
+                    <li><span class="highlight">Decision Making Ability</span> <span class="emoji">⚡</span></li>
+                    <li><span class="highlight">Business Planning Ability</span> <span class="emoji">📋</span></li>
+                    <li><span class="highlight">Hard Working</span> <span class="emoji">💪</span></li>
+                    <li><span class="highlight">Honesty & Integrity</span> <span class="emoji">✨</span></li>
+                    <li><span class="highlight">Patience</span> <span class="emoji">⏰</span></li>
+                    <li><span class="highlight">Inner Drive to Success</span> <span class="emoji">🔥</span></li>
+                    <li><span class="highlight">Search for Innovation</span> <span class="emoji">🔍</span></li>
+                    <li><span class="highlight">Openness to Change</span> <span class="emoji">🔄</span></li>
+                    <li><span class="highlight">Competitive Nature</span> <span class="emoji">⚔️</span></li>
+                    <li><span class="highlight">High Energy Level</span> <span class="emoji">⚡</span></li>
+                    <li><span class="highlight">Accept Constructive Criticism</span> <span class="emoji">💬</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 9: Functions of Women Entrepreneurs -->
+            <div class="study-card">
+                <div class="card-number">9</div>
+                <h2 class="card-title"><span class="emoji">👩‍💼</span>Functions of Women Entrepreneurs</h2>
+                <div class="memory-tip">Memory Tip: "ECRIM" - Exploration, Creation, Risk, Innovation, Management</div>
+
+                <ul class="numbered-list">
+                    <li><span class="highlight">Exploration of Prospects</span> <span class="emoji">🔍</span></li>
+                    <li><span class="highlight">Creation of New Ventures</span> <span class="emoji">🚀</span></li>
+                    <li><span class="highlight">Risk Bearing</span> <span class="emoji">⚡</span></li>
+                    <li><span class="highlight">Innovation & Creativity</span> <span class="emoji">💡</span></li>
+                    <li><span class="highlight">Management & Leadership</span> <span class="emoji">📊</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 10: E-commerce Business Connections -->
+            <div class="study-card">
+                <div class="card-number">10</div>
+                <h2 class="card-title"><span class="emoji">💻</span>E-commerce Business Connections</h2>
+                <div class="memory-tip">Memory Tip: "B2C2B" - Business to Consumer, Consumer to Consumer, Consumer to Business</div>
+            
+                <h3 class="section-header">🤝 Customer Connection Types</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Business to Consumer (B2C)</span> <span class="emoji">🛒</span></li>
+                    <li><span class="highlight">Business to Business (B2B)</span> <span class="emoji">🏢</span></li>
+                    <li><span class="highlight">Consumer to Consumer (C2C)</span> <span class="emoji">👥</span></li>
+                    <li><span class="highlight">Consumer to Business (C2B)</span> <span class="emoji">🔄</span></li>
+                </ul>
+
+                <h3 class="section-header">🌐 Extended Connections</h3>
+                <ul class="numbered-list">
+                    <li><span class="highlight">Business Stakeholder Connection</span> <span class="emoji">🤝</span></li>
+                    <li><span class="highlight">Global Market Connection</span> <span class="emoji">🌍</span></li>
+                </ul>
+            </div>
+
+            <!-- Card 11: E-commerce Impact on Entrepreneurship -->
+            <div class="study-card">
+                <div class="card-number">11</div>
+                <h2 class="card-title"><span class="emoji">📈</span>E-commerce Impact on Entrepreneurship</h2>
+                <div class="memory-tip">Memory Tip: "DEPGCG" - Direct, Electronic, Promotion, Global, Cost, Good faith</div>
+           
+                <ul class="numbered-list">
+                    <li><span class="highlight">Direct Marketing</span> <span class="emoji">🎯</span></li>
+                    <li><span class="highlight">Electronic Marketing</span> <span class="emoji">💻</span></li>
+                    <li><span class="highlight">Enhanced Promotion</span> <span class="emoji">📢</span></li>
+                    <li><span class="highlight">Global Strategy Reach</span> <span class="emoji">🌏</span></li>
+                    <li><span class="highlight">Cost Effectiveness</span> <span class="emoji">💰</span></li>
+                    <li><span class="highlight">Building Good Faith</span> <span class="emoji">✨</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.study-card');
+            
+            // Card flip animation on click
+            cards.forEach((card, index) => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.numbered-list li')) {
+                        this.style.transform = 'rotateY(180deg) scale(1.05)';
+                        setTimeout(() => {
+                            this.style.transform = 'rotateY(0deg) scale(1)';
+                        }, 600);
+                    }
+                });
+
+                // Staggered entrance animation
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, index * 150);
+            });
+
+            // Initialize cards with hidden state
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px) scale(0.9)';
+                card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+
+            // Interactive list items
+            const numberedItems = document.querySelectorAll('.numbered-list li');
+            numberedItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    // Remove active class from all items
+                    numberedItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.style.background = '';
+                    });
+                    
+                    // Add active class and styling
+                    this.classList.add('active');
+                    this.style.background = 'linear-gradient(135deg, #d4edda, #c3e6cb)';
+                    this.style.borderLeft = '4px solid #28a745';
+                    
+                    // Create ripple effect
+                    const ripple = document.createElement('div');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(40, 167, 69, 0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.width = ripple.style.height = '20px';
+                    ripple.style.marginLeft = ripple.style.marginTop = '-10px';
+                    
+                    this.style.position = 'relative';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        if (ripple.parentNode) {
+                            ripple.parentNode.removeChild(ripple);
+                        }
+                    }, 600);
+                    
+                    setTimeout(() => {
+                        this.style.background = '';
+                        this.style.borderLeft = '4px solid #667eea';
+                        this.classList.remove('active');
+                    }, 2000);
+                });
+
+                // Hover effects for list items
+                item.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateX(10px) scale(1.02)';
+                        this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                    }
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateX(0) scale(1)';
+                        this.style.boxShadow = '';
+                    }
+                });
+            });
+
+            // Section header interactions
+            const sectionHeaders = document.querySelectorAll('.section-header');
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const section = this.nextElementSibling;
+                    if (section && section.classList.contains('numbered-list')) {
+                        // Highlight section
+                        section.style.border = '3px solid #667eea';
+                        section.style.borderRadius = '15px';
+                        section.style.padding = '15px';
+                        section.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1))';
+                        
+                        // Animate section items
+                        const items = section.querySelectorAll('li');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.style.transform = 'scale(1.05)';
+                                item.style.background = 'linear-gradient(135deg, #e3f2fd, #bbdefb)';
+                                setTimeout(() => {
+                                    item.style.transform = 'scale(1)';
+                                    item.style.background = '';
+                                }, 200);
+                            }, index * 100);
+                        });
+                        
+                        setTimeout(() => {
+                            section.style.border = '';
+                            section.style.borderRadius = '';
+                            section.style.padding = '';
+                            section.style.background = '';
+                        }, 3000);
+                    }
+                });
+            });
+
+            // Add CSS for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+                
+                .highlight:hover {
+                    animation: glow 1s ease-in-out infinite alternate;
+                }
+                
+                @keyframes glow {
+                    from { box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+                    to { box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+<script src="footer.js"></script>
+</body>   
+</html>

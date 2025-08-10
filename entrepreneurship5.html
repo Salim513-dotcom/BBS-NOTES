@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrepreneurship Development Study Cards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); }
+            50% { background: linear-gradient(135deg, #764ba2 0%, #f093fb 50%, #667eea 100%); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 3em;
+            font-weight: 700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.4); }
+            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3); }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .study-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .study-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .study-card:hover::before {
+            left: 100%;
+        }
+
+        .study-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-number {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24, #fd79a8);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3); }
+            50% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.6), 0 0 0 10px rgba(238, 90, 36, 0.1); }
+            100% { box-shadow: 0 8px 16px rgba(238, 90, 36, 0.3); }
+        }
+
+        .card-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-right: 70px;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 3px solid transparent;
+            border-image: linear-gradient(90deg, #667eea, #764ba2) 1;
+            padding-bottom: 12px;
+        }
+
+        .memory-tip {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 5px solid #e67e22;
+            font-style: italic;
+            font-weight: 600;
+            color: #c0392b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .memory-tip::before {
+            content: '💡';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            font-size: 30px;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .section-header {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 25px 0 15px 0;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+        }
+
+        .numbered-list {
+            list-style: none;
+            counter-reset: main-counter;
+        }
+
+        .numbered-list > li {
+            counter-increment: main-counter;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            padding-left: 45px;
+        }
+
+        .numbered-list > li::before {
+            content: counter(main-counter);
+            position: absolute;
+            left: -2px;
+            top: -2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .numbered-list > li:hover {
+            background: linear-gradient(135deg, #e8f4fd, #dbeafe);
+            border-left-color: #e74c3c;
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .sub-list {
+            list-style: none;
+            counter-reset: sub-counter;
+            margin-top: 15px;
+            padding-left: 25px;
+        }
+
+        .sub-list li {
+            counter-increment: sub-counter;
+            background: linear-gradient(135deg, #ecf0f1, #bdc3c7);
+            border-left: 3px solid #9b59b6;
+            font-size: 14px;
+            margin: 8px 0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .sub-list li::before {
+            content: counter(main-counter) "." counter(sub-counter);
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #9b59b6;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .sub-sub-list {
+            list-style: none;
+            counter-reset: subsub-counter;
+            margin-top: 8px;
+            padding-left: 20px;
+        }
+
+        .sub-sub-list li {
+            counter-increment: subsub-counter;
+            background: #f4f4f4;
+            border-left: 2px solid #e67e22;
+            font-size: 13px;
+            margin: 4px 0;
+            padding: 6px 10px;
+            border-radius: 4px;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .sub-sub-list li::before {
+            content: counter(main-counter) "." counter(sub-counter) "." counter(subsub-counter);
+            position: absolute;
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #e67e22;
+            color: white;
+            padding: 1px 6px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef, #ffecd2);
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .highlight:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .emoji {
+            font-size: 22px;
+            margin-right: 8px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        .summary-box {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .summary-box h2 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .summary-box p {
+            color: white;
+            font-size: 18px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .study-card {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            .title {
+                font-size: 2.2em;
+                margin-bottom: 30px;
+            }
+
+            .card-number {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">5. ⚖️ Legal Environment for Entrepreneurship</h1>
+        
+        <div class="card-grid">
+            <!-- Card 1: Legal Provisions for Private Firm -->
+            <div class="study-card">
+                <div class="card-number">1</div>
+                <h2 class="card-title"><span class="emoji">🏢</span>Legal Provisions for Private Firm</h2>
+                <div class="memory-tip">Memory Tip: "RCRLD" - Registration, Certificate, Renewal, Legal recognition, Dissolution</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Registration</span> <span class="emoji">📝</span>
+                        <ul class="sub-list">
+                            <li>Application to Company Registrar Office</li>
+                            <li>Required Documents Submission</li>
+                            <li>Business Name Verification</li>
+                            <li>Registration Fee Payment</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Certificate</span> <span class="emoji">📜</span>
+                        <ul class="sub-list">
+                            <li>Registration Certificate Issuance</li>
+                            <li>Legal Entity Status</li>
+                            <li>Business Identification Number</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Renewal</span> <span class="emoji">🔄</span>
+                        <ul class="sub-list">
+                            <li>Annual Renewal Process</li>
+                            <li>Renewal Fee Payment</li>
+                            <li>Updated Documentation</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Legal Recognition</span> <span class="emoji">✅</span>
+                        <ul class="sub-list">
+                            <li>Legal Standing in Court</li>
+                            <li>Contract Making Rights</li>
+                            <li>Property Ownership Rights</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Dissolution</span> <span class="emoji">❌</span>
+                        <ul class="sub-list">
+                            <li>Voluntary Dissolution Process</li>
+                            <li>Asset Distribution</li>
+                            <li>Legal Obligation Completion</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 2: Legal Provisions for Partnership Firm -->
+            <div class="study-card">
+                <div class="card-number">2</div>
+                <h2 class="card-title"><span class="emoji">🤝</span>Legal Provisions for Partnership Firm</h2>
+                <div class="memory-tip">Memory Tip: "RTRD" - Registration, Types, Renewal, Dissolution</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Registration of Partnership</span> <span class="emoji">📋</span>
+                        <ul class="sub-list">
+                            <li>Partnership Deed Preparation</li>
+                            <li>Registration at Company Registrar</li>
+                            <li>Partner Information Documentation</li>
+                            <li>Capital Contribution Details</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Types of Partners</span> <span class="emoji">👥</span>
+                        <ul class="sub-list">
+                            <li>Active/Working Partners</li>
+                            <li>Sleeping/Dormant Partners</li>
+                            <li>Limited Partners</li>
+                            <li>General Partners</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Renewal</span> <span class="emoji">🔄</span>
+                        <ul class="sub-list">
+                            <li>Annual Registration Renewal</li>
+                            <li>Updated Partnership Agreement</li>
+                            <li>Fee Payment Process</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Dissolution</span> <span class="emoji">❌</span>
+                        <ul class="sub-list">
+                            <li>Non-renewal within allotted time</li>
+                            <li>Application with logical reason</li>
+                            <li>Activities against law</li>
+                            <li>Asset and Liability Settlement</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 3: Legal Provisions for Company -->
+            <div class="study-card">
+                <div class="card-number">3</div>
+                <h2 class="card-title"><span class="emoji">🏢</span>Legal Provisions for Company</h2>
+                <div class="memory-tip">Memory Tip: "INSCBAL" - Incorporation, Number, Share, Company meeting, Board, Auditing, Liquidation</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Incorporation</span> <span class="emoji">📑</span>
+                        <ul class="sub-list">
+                            <li>Memorandum of Association</li>
+                            <li>Articles of Association</li>
+                            <li>Certificate of Incorporation</li>
+                            <li>Company Registration Process</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Number of Shareholders</span> <span class="emoji">👥</span>
+                        <ul class="sub-list">
+                            <li>Private Company: 2-101 shareholders</li>
+                            <li>Public Company: Minimum 7 shareholders</li>
+                            <li>Shareholding Structure</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Share</span> <span class="emoji">📊</span>
+                        <ul class="sub-list">
+                            <li>Share Capital Structure</li>
+                            <li>Share Transfer Process</li>
+                            <li>Dividend Distribution</li>
+                            <li>Share Valuation</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Company Meeting</span> <span class="emoji">🏛️</span>
+                        <ul class="sub-list">
+                            <li>Annual General Meeting (AGM)</li>
+                            <li>Extraordinary General Meeting</li>
+                            <li>Board Meetings</li>
+                            <li>Meeting Procedures and Records</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Board of Directors</span> <span class="emoji">👔</span>
+                        <ul class="sub-list">
+                            <li>Director Appointment Process</li>
+                            <li>Duties and Responsibilities</li>
+                            <li>Board Composition Requirements</li>
+                            <li>Independent Directors</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Auditing</span> <span class="emoji">🔍</span>
+                        <ul class="sub-list">
+                            <li>External Auditor Appointment</li>
+                            <li>Annual Financial Audit</li>
+                            <li>Audit Report Requirements</li>
+                            <li>Compliance Auditing</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Liquidation</span> <span class="emoji">💧</span>
+                        <ul class="sub-list">
+                            <li>Voluntary Liquidation</li>
+                            <li>Compulsory Liquidation</li>
+                            <li>Asset Disposal Process</li>
+                            <li>Creditor Settlement</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 4: Patent Registration Process -->
+            <div class="study-card">
+                <div class="card-number">4</div>
+                <h2 class="card-title"><span class="emoji">📄</span>Patent Registration Process in Nepal</h2>
+                <div class="memory-tip">Memory Tip: "AIRP" - Application, Investigation, Registration, Publication</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Application Form</span> <span class="emoji">📝</span>
+                        <ul class="sub-list">
+                            <li>Patent Application Form Submission</li>
+                            <li>Invention Description</li>
+                            <li>Claims and Drawings</li>
+                            <li>Prior Art Search</li>
+                            <li>Application Fee Payment</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Investigation</span> <span class="emoji">🔍</span>
+                        <ul class="sub-list">
+                            <li>Novelty Examination</li>
+                            <li>Inventive Step Assessment</li>
+                            <li>Industrial Application Review</li>
+                            <li>Technical Evaluation</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Registration</span> <span class="emoji">✅</span>
+                        <ul class="sub-list">
+                            <li>Patent Certificate Issuance</li>
+                            <li>Patent Number Assignment</li>
+                            <li>Legal Protection Rights</li>
+                            <li>20-year Protection Period</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Publication</span> <span class="emoji">📢</span>
+                        <ul class="sub-list">
+                            <li>Patent Gazette Publication</li>
+                            <li>Public Disclosure</li>
+                            <li>Opposition Period</li>
+                            <li>Patent Database Entry</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 5: Trademark Registration Process -->
+            <div class="study-card">
+                <div class="card-number">5</div>
+                <h2 class="card-title"><span class="emoji">🏷️</span>Trademark Registration Process in Nepal</h2>
+                <div class="memory-tip">Memory Tip: "AIC" - Application, Investigation, Charges</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Application</span> <span class="emoji">📝</span>
+                        <ul class="sub-list">
+                            <li>Trademark Application Form</li>
+                            <li>Logo/Mark Representation</li>
+                            <li>Class Specification</li>
+                            <li>Applicant Details</li>
+                            <li>Priority Claim (if applicable)</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Investigation</span> <span class="emoji">🔍</span>
+                        <ul class="sub-list">
+                            <li>Similarity Search</li>
+                            <li>Distinctiveness Examination</li>
+                            <li>Legal Requirements Check</li>
+                            <li>Conflicting Marks Review</li>
+                            <li>Public Interest Assessment</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Registration & Charges</span> <span class="emoji">💰</span>
+                        <ul class="sub-list">
+                            <li>Registration Fee Structure</li>
+                            <li>Class-based Fee Calculation</li>
+                            <li>Renewal Fee Schedule</li>
+                            <li>10-year Protection Period</li>
+                            <li>Certificate Issuance</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 6: Major Trade Elements -->
+            <div class="study-card">
+                <div class="card-number">6</div>
+                <h2 class="card-title"><span class="emoji">🔐</span>Major Trade Elements (Trade Secrets)</h2>
+                <div class="memory-tip">Memory Tip: "FPNSMLUPBC" - Formula, Process, New, Survey, Marketing, List customers, List suppliers, Plant, Business</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Formula Production</span> <span class="emoji">⚗️</span>
+                        <ul class="sub-list">
+                            <li>Manufacturing Formulas</li>
+                            <li>Chemical Compositions</li>
+                            <li>Recipe Development</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Process & Methods</span> <span class="emoji">⚙️</span>
+                        <ul class="sub-list">
+                            <li>Manufacturing Processes</li>
+                            <li>Quality Control Methods</li>
+                            <li>Operational Procedures</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">New Invention</span> <span class="emoji">💡</span>
+                        <ul class="sub-list">
+                            <li>Product Innovations</li>
+                            <li>Technical Improvements</li>
+                            <li>Design Innovations</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Survey, Research and Development</span> <span class="emoji">📊</span>
+                        <ul class="sub-list">
+                            <li>Market Research Data</li>
+                            <li>R&D Findings</li>
+                            <li>Consumer Behavior Studies</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Marketing Strategies</span> <span class="emoji">📈</span>
+                        <ul class="sub-list">
+                            <li>Promotional Campaigns</li>
+                            <li>Pricing Strategies</li>
+                            <li>Brand Positioning</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">List of Customers</span> <span class="emoji">📋</span>
+                        <ul class="sub-list">
+                            <li>Customer Database</li>
+                            <li>Contact Information</li>
+                            <li>Purchase History</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">List of Suppliers</span> <span class="emoji">🏪</span>
+                        <ul class="sub-list">
+                            <li>Supplier Networks</li>
+                            <li>Contract Terms</li>
+                            <li>Cost Structures</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Plant and Computer System</span> <span class="emoji">💻</span>
+                        <ul class="sub-list">
+                            <li>Software Systems</li>
+                            <li>Production Equipment</li>
+                            <li>Technical Specifications</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Business Compilations</span> <span class="emoji">📊</span>
+                        <ul class="sub-list">
+                            <li>Financial Reports</li>
+                            <li>Strategic Plans</li>
+                            <li>Competitive Analysis</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 7: Types of Trade Licensing -->
+            <div class="study-card">
+                <div class="card-number">7</div>
+                <h2 class="card-title"><span class="emoji">📜</span>Types of Trade Licensing</h2>
+                <div class="memory-tip">Memory Tip: "PTC" - Patent, Trademark, Copyright</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Patent License</span> <span class="emoji">⚡</span>
+                        <ul class="sub-list">
+                            <li>Utility Patents
+                                <ul class="sub-sub-list">
+                                    <li>Process Patents</li>
+                                    <li>Machine Patents</li>
+                                    <li>Composition Patents</li>
+                                </ul>
+                            </li>
+                            <li>Plant Patents
+                                <ul class="sub-sub-list">
+                                    <li>New Plant Varieties</li>
+                                    <li>Asexually Reproduced Plants</li>
+                                </ul>
+                            </li>
+                            <li>Design Patents
+                                <ul class="sub-sub-list">
+                                    <li>Ornamental Designs</li>
+                                    <li>Product Appearance</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Trademark License</span> <span class="emoji">🏷️</span>
+                        <ul class="sub-list">
+                            <li>Brand Licensing Agreements</li>
+                            <li>Logo Usage Rights</li>
+                            <li>Service Mark Licensing</li>
+                            <li>Territorial Licensing</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Copyright License</span> <span class="emoji">📚</span>
+                        <ul class="sub-list">
+                            <li>Literary Work Licensing</li>
+                            <li>Software Licensing</li>
+                            <li>Artistic Work Licensing</li>
+                            <li>Music and Audio Licensing</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 8: Important Insurance Policies -->
+            <div class="study-card">
+                <div class="card-number">8</div>
+                <h2 class="card-title"><span class="emoji">🛡️</span>Important Insurance Policies for Entrepreneurs</h2>
+                <div class="memory-tip">Memory Tip: "PWLHLBK" - Property, Workers', Life, Health, Liability, Business interruption, Key person</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Property Insurance</span> <span class="emoji">🏠</span>
+                        <ul class="sub-list">
+                            <li>Building and Structure Coverage</li>
+                            <li>Equipment and Machinery Protection</li>
+                            <li>Inventory Coverage</li>
+                            <li>Fire and Natural Disaster Protection</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Workers' Compensation Insurance</span> <span class="emoji">👷‍♂️</span>
+                        <ul class="sub-list">
+                            <li>Employee Injury Coverage</li>
+                            <li>Medical Expense Coverage</li>
+                            <li>Lost Wage Compensation</li>
+                            <li>Disability Benefits</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Life Insurance</span> <span class="emoji">❤️</span>
+                        <ul class="sub-list">
+                            <li>Term Life Insurance</li>
+                            <li>Whole Life Insurance</li>
+                            <li>Business Life Insurance</li>
+                            <li>Key Person Life Coverage</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Health Insurance</span> <span class="emoji">🏥</span>
+                        <ul class="sub-list">
+                            <li>Employee Health Coverage</li>
+                            <li>Medical Treatment Coverage</li>
+                            <li>Preventive Care Benefits</li>
+                            <li>Prescription Drug Coverage</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Liability Insurance</span> <span class="emoji">⚖️</span>
+                        <ul class="sub-list">
+                            <li>General Liability Coverage</li>
+                            <li>Product Liability Insurance</li>
+                            <li>Professional Liability</li>
+                            <li>Public Liability Protection</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Business Interruption Insurance</span> <span class="emoji">🚫</span>
+                        <ul class="sub-list">
+                            <li>Lost Revenue Coverage</li>
+                            <li>Operating Expense Coverage</li>
+                            <li>Temporary Relocation Costs</li>
+                            <li>Extra Expense Coverage</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Key Person Insurance</span> <span class="emoji">👑</span>
+                        <ul class="sub-list">
+                            <li>Critical Employee Coverage</li>
+                            <li>Revenue Loss Protection</li>
+                            <li>Recruitment Cost Coverage</li>
+                            <li>Business Continuity Planning</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 9: Legal Documentation Requirements -->
+            <div class="study-card">
+                <div class="card-number">9</div>
+                <h2 class="card-title"><span class="emoji">📋</span>Legal Documentation Requirements</h2>
+                <div class="memory-tip">Memory Tip: "BCLTEP" - Business license, Contracts, Legal compliance, Tax registration, Employment, Permits</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Business License and Permits</span> <span class="emoji">🏪</span>
+                        <ul class="sub-list">
+                            <li>Business Registration Certificate</li>
+                            <li>Industry-specific Licenses</li>
+                            <li>Municipal Permits</li>
+                            <li>Environmental Clearance</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Contracts and Agreements</span> <span class="emoji">📄</span>
+                        <ul class="sub-list">
+                            <li>Supplier Agreements</li>
+                            <li>Customer Contracts</li>
+                            <li>Employment Contracts</li>
+                            <li>Partnership Agreements</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Legal Compliance Documents</span> <span class="emoji">⚖️</span>
+                        <ul class="sub-list">
+                            <li>Regulatory Compliance Certificates</li>
+                            <li>Safety Standards Documentation</li>
+                            <li>Quality Assurance Records</li>
+                            <li>Legal Opinion Letters</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Tax Registration</span> <span class="emoji">💰</span>
+                        <ul class="sub-list">
+                            <li>VAT Registration</li>
+                            <li>Income Tax Registration</li>
+                            <li>Excise Tax Documentation</li>
+                            <li>Social Security Registration</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Employment Documentation</span> <span class="emoji">👥</span>
+                        <ul class="sub-list">
+                            <li>Labor Law Compliance</li>
+                            <li>Employee Handbook</li>
+                            <li>Workplace Safety Policies</li>
+                            <li>Hiring and Termination Procedures</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Special Permits</span> <span class="emoji">🎫</span>
+                        <ul class="sub-list">
+                            <li>Import/Export Licenses</li>
+                            <li>Foreign Investment Permits</li>
+                            <li>Technology Transfer Agreements</li>
+                            <li>Franchise Documentation</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 10: Intellectual Property Protection -->
+            <div class="study-card">
+                <div class="card-number">10</div>
+                <h2 class="card-title"><span class="emoji">🧠</span>Intellectual Property Protection</h2>
+                <div class="memory-tip">Memory Tip: "PTCTS" - Patents, Trademarks, Copyrights, Trade secrets</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Patent Protection Strategies</span> <span class="emoji">⚡</span>
+                        <ul class="sub-list">
+                            <li>Innovation Documentation</li>
+                            <li>Prior Art Analysis</li>
+                            <li>Patent Portfolio Development</li>
+                            <li>International Patent Filing</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Trademark Management</span> <span class="emoji">🏷️</span>
+                        <ul class="sub-list">
+                            <li>Brand Protection Strategy</li>
+                            <li>Trademark Monitoring</li>
+                            <li>Infringement Prevention</li>
+                            <li>International Trademark Registration</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Copyright Protection</span> <span class="emoji">📚</span>
+                        <ul class="sub-list">
+                            <li>Creative Work Documentation</li>
+                            <li>Copyright Registration Process</li>
+                            <li>Digital Content Protection</li>
+                            <li>Licensing Agreements</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Trade Secret Management</span> <span class="emoji">🤐</span>
+                        <ul class="sub-list">
+                            <li>Confidentiality Agreements</li>
+                            <li>Access Control Systems</li>
+                            <li>Employee Training Programs</li>
+                            <li>Information Security Protocols</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Card 11: Regulatory Compliance Framework -->
+            <div class="study-card">
+                <div class="card-number">11</div>
+                <h2 class="card-title"><span class="emoji">📊</span>Regulatory Compliance Framework</h2>
+                <div class="memory-tip">Memory Tip: "ELQSFC" - Environmental, Labor, Quality, Safety, Financial, Consumer</div>
+                
+                <ul class="numbered-list">
+                    <li><span class="highlight">Environmental Compliance</span> <span class="emoji">🌱</span>
+                        <ul class="sub-list">
+                            <li>Environmental Impact Assessment</li>
+                            <li>Pollution Control Measures</li>
+                            <li>Waste Management Compliance</li>
+                            <li>Renewable Energy Requirements</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Labor Law Compliance</span> <span class="emoji">👷</span>
+                        <ul class="sub-list">
+                            <li>Minimum Wage Requirements</li>
+                            <li>Working Hour Regulations</li>
+                            <li>Employee Rights Protection</li>
+                            <li>Non-discrimination Policies</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Quality Standards</span> <span class="emoji">⭐</span>
+                        <ul class="sub-list">
+                            <li>ISO Certification Requirements</li>
+                            <li>Product Quality Standards</li>
+                            <li>Service Quality Metrics</li>
+                            <li>Continuous Improvement Processes</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Safety Regulations</span> <span class="emoji">🦺</span>
+                        <ul class="sub-list">
+                            <li>Workplace Safety Standards</li>
+                            <li>Product Safety Requirements</li>
+                            <li>Emergency Response Procedures</li>
+                            <li>Safety Training Programs</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Financial Compliance</span> <span class="emoji">💼</span>
+                        <ul class="sub-list">
+                            <li>Financial Reporting Standards</li>
+                            <li>Tax Compliance Requirements</li>
+                            <li>Anti-money Laundering Rules</li>
+                            <li>Foreign Exchange Regulations</li>
+                        </ul>
+                    </li>
+                    <li><span class="highlight">Consumer Protection</span> <span class="emoji">🛡️</span>
+                        <ul class="sub-list">
+                            <li>Consumer Rights Protection</li>
+                            <li>Product Labeling Requirements</li>
+                            <li>Advertising Standards</li>
+                            <li>Data Privacy Protection</li>
+                        </ul>
+
+<div style="text-align: center; margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px;">
+            <h2 style="color: white; margin-bottom: 15px;">🎯 Quick Review Summary</h2>
+            <p style="color: white; font-size: 18px; line-height: 1.6;">
+                <strong>Chapter 4:</strong> Entrepreneurial Risk & Stress<br>
+                <strong>Total Cards:</strong> 3 | <strong>Total Topics:</strong> 13 concepts<br>
+                <strong>Numbering System:</strong> 4.1 (Sources of Stress) → 4.2 (Minimize Stress) → 4.3 (Types of Risk)<br>
+                <strong>Study Tip:</strong> Remember the 4 stress sources, 5 stress minimization methods, and 4 risk types for comprehensive understanding!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.study-card');
+            
+            // Card flip animation on click
+            cards.forEach((card, index) => {
+                card.addEventListener('click', function(e) {
+                    if (!e.target.closest('.numbered-list li')) {
+                        this.style.transform = 'rotateY(180deg) scale(1.05)';
+                        setTimeout(() => {
+                            this.style.transform = 'rotateY(0deg) scale(1)';
+                        }, 600);
+                    }
+                });
+
+                // Staggered entrance animation
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, index * 150);
+            });
+
+            // Initialize cards with hidden state
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px) scale(0.9)';
+                card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+
+            // Interactive list items
+            const numberedItems = document.querySelectorAll('.numbered-list li');
+            numberedItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    
+                    // Remove active class from all items
+                    numberedItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                        otherItem.style.background = '';
+                    });
+                    
+                    // Add active class and styling
+                    this.classList.add('active');
+                    this.style.background = 'linear-gradient(135deg, #d4edda, #c3e6cb)';
+                    this.style.borderLeft = '4px solid #28a745';
+                    
+                    // Create ripple effect
+                    const ripple = document.createElement('div');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(40, 167, 69, 0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.width = ripple.style.height = '20px';
+                    ripple.style.marginLeft = ripple.style.marginTop = '-10px';
+                    
+                    this.style.position = 'relative';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        if (ripple.parentNode) {
+                            ripple.parentNode.removeChild(ripple);
+                        }
+                    }, 600);
+                    
+                    setTimeout(() => {
+                        this.style.background = '';
+                        this.style.borderLeft = '4px solid #667eea';
+                        this.classList.remove('active');
+                    }, 2000);
+                });
+
+                // Hover effects for list items
+                item.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateX(10px) scale(1.02)';
+                        this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                    }
+                });
+
+                item.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateX(0) scale(1)';
+                        this.style.boxShadow = '';
+                    }
+                });
+            });
+
+            // Section header interactions
+            const sectionHeaders = document.querySelectorAll('.section-header');
+            sectionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const section = this.nextElementSibling;
+                    if (section && section.classList.contains('numbered-list')) {
+                        // Highlight section
+                        section.style.border = '3px solid #667eea';
+                        section.style.borderRadius = '15px';
+                        section.style.padding = '15px';
+                        section.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1))';
+                        
+                        // Animate section items
+                        const items = section.querySelectorAll('li');
+                        items.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.style.transform = 'scale(1.05)';
+                                item.style.background = 'linear-gradient(135deg, #e3f2fd, #bbdefb)';
+                                setTimeout(() => {
+                                    item.style.transform = 'scale(1)';
+                                    item.style.background = '';
+                                }, 200);
+                            }, index * 100);
+                        });
+                        
+                        setTimeout(() => {
+                            section.style.border = '';
+                            section.style.borderRadius = '';
+                            section.style.padding = '';
+                            section.style.background = '';
+                        }, 3000);
+                    }
+                });
+            });
+
+            // Add CSS for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+                
+                .highlight:hover {
+                    animation: glow 1s ease-in-out infinite alternate;
+                }
+                
+                @keyframes glow {
+                    from { box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+                    to { box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+<script src="footer.js"></script>
+</body>   
+</html>

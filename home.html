@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBS 4th Year - Subject Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Landing Page Styles */
+        .landing-page {
+            display: block;
+        }
+
+        .header {
+            text-align: center; 
+            margin-bottom: 60px;
+            background:black ;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shine 4s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .header h1 {
+            font-size: 4em;
+            background: white;
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            position: relative;
+            animation: gradientShift 6s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header p {
+            font-size: 1.4em;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .semester-badge {
+            display: inline-block;
+            background: red;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .subject-card {
+            background: whitesmoke;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .subject-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+        }
+
+        .subject-card.corporate-finance {
+            border-image: linear-gradient(45deg, #667eea, #764ba2) 1;
+        }
+
+        .subject-card.financial-institutions {
+            border-image: linear-gradient(45deg, #f093fb, #f5576c) 1;
+        }
+
+        .subject-card.investment {
+            border-image: linear-gradient(45deg, #4ecdc4, #44a08d) 1;
+        }
+
+        .subject-card.entrepreneurship {
+            border-image: linear-gradient(45deg, #ffecd2, #fcb69f) 1;
+        }
+
+        .subject-card.research-methods {
+            border-image: linear-gradient(45deg, #a8edea, #fed6e3) 1;
+        }
+
+        .subject-icon {
+            font-size: 5em;
+            margin-bottom: 25px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .subject-card h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .subject-card p {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .enter-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: rgb(219, 219, 19);
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+       
+        
+
+        .enter-btn:hover::after {
+            transform: translateX(5px);
+        }
+
+        /* Subject Page Styles */
+        .subject-page {
+            display: none;
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        .subject-page.active {
+            display: block;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .subject-card h2 {
+    color: #4ecdc4;
+    ;
+    
+}
+.subject-card {
+    background: #232946;
+    color: #f4f4f4;
+    border-radius: 25px;
+}
+
+.subject-card h2 {
+    color: #ffe066;
+}
+
+.subject-card p {
+    color: #e0e0e0;
+}
+
+.subject-icon {
+    color: #4ecdc4;
+}
+
+.enter-btn {
+    background: linear-gradient(45deg, #4ecdc4, #5f2c82);
+    color: #fff;
+}
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .subject-header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .subject-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .notes-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .notes-tools {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tool-btn {
+            background: darkgrey(45deg, #4ecdc4, #44a08d);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
+        }
+
+        .notes-editor {
+            width: 100%;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .notes-editor:focus-within {
+            border-color: darkgray;
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .note-title {
+            width: 100%;
+            padding: 20px;
+            border: none;
+            background: white;
+            border-radius: 12px;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .note-title:focus {
+            outline: none;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .note-content {
+            width: 100%;
+            height: 600px;
+            padding: 25px;
+            border: none;
+            background: white;
+            border-radius: 12px;
+            font-family: 'Georgia', serif;
+            font-size: 16px;
+            line-height: 1.8;
+            resize: vertical;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .note-content:focus {
+            outline: none;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .word-count {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            color: #666;
+            font-size: 0.9em;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        .saved-notes-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(248, 249, 250, 0.8);
+            border-radius: 15px;
+        }
+
+        .saved-notes-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.3em;
+        }
+
+        .saved-note-item {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 5px solid #667eea;
+        }
+
+        .saved-note-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .note-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .note-item-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .note-item-date {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .note-item-preview {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .note-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 6px 15px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: #4caf50;
+            color: white;
+        }
+
+       
+.enter-btn a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+        .delete-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .subjects-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .subject-card {
+                padding: 30px 20px;
+            }
+            
+            .subject-icon {
+                font-size: 3.5em;
+            }
+            
+            .notes-container {
+                padding: 20px;
+            }
+            
+            .note-content {
+                height: 400px;
+            }
+        }
+
+        .floating-save-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #4caf50, #45a049);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: none;
+        }
+
+        .floating-save-btn.show {
+            display: block;
+            animation: bounceIn 0.6s ease;
+        }
+
+        .floating-save-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.6);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Page -->
+        <div id="landing-page" class="landing-page">
+            <div class="header">
+                <h1>📚 BBS Fourth Year</h1>
+            </div>
+
+            <div class="subjects-grid">
+                <div class="subject-card corporate-finance" >
+                    <div class="subject-icon">💼</div>
+                    
+                    <p>Master financial decision-making, capital structure, valuation methods, and corporate financial strategies</p>
+                    <button class="enter-btn"><a href="corporate.html"><h2>Fundamentals of Corporate Finance</h2></a></button>
+                </div>
+
+                <div class="subject-card financial-institutions" >
+                    <div class="subject-icon">🏦</div>
+                   
+                    <p>Explore banking systems, financial markets, regulatory frameworks, and institutional operations</p>
+                    <button class="enter-btn"><a href="financial.html"><h2>Fundamentals of Financial Institutions and market</h2></a></button>
+                </div>
+
+                <div class="subject-card investment" >
+                    <div class="subject-icon">📈</div>
+                  
+                    <p>Learn portfolio management, securities analysis, risk assessment, and investment strategies</p>
+                    <button class="enter-btn"><a href="investment.html"><h2>Fundamentals of Investment</h2></a></button>
+                </div>
+
+
+                <div class="subject-card entrepreneurship" >
+                    <div class="subject-icon">🚀</div>
+                    
+                    <p>Develop business creation skills, innovation mindset, and venture development strategies</p>
+                    <button class="enter-btn"><a href="entrepreneurship.html"><h2>Entrepreneurship</h2></a></button>
+                </div>
+
+
+                <div class="subject-card research-methods" >
+                    <div class="subject-icon">🔬</div>
+                    
+                    <p>Master research design, data collection, statistical analysis, and scientific methodology</p>
+                    <button class="enter-btn"><a href="research.html"><h2>Business Research Methods</h2></a></button>
+                </div>
+            </div>
+        </div>
+
+        
+    </script>
+<script src="footer.js"></script>
+</body>   
+</html>
