@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Design - Unit 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            color: #4facfe;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            animation: slideDown 0.8s ease;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .nav-pills {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-pill {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-pill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-pill.active {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #4facfe;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, #4facfe15 0%, #00f2fe15 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid #4facfe;
+            margin: 1rem 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #43e97b15 0%, #38f9d715 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-item:hover {
+            border-color: #43e97b;
+            transform: scale(1.05);
+        }
+
+        .feature-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            background: white;
+        }
+
+        .comparison-table tr:hover td {
+            background: #f0f9ff;
+        }
+
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid #4facfe;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            min-width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .method-card {
+            background: linear-gradient(135deg, #4facfe10 0%, #00f2fe10 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border: 2px solid #4facfe30;
+        }
+
+        .method-card h3 {
+            color: #4facfe;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(253, 203, 110, 0.3);
+        }
+
+        .principle-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .principle-item {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .principle-item:hover {
+            transform: scale(1.05);
+        }
+
+        .emoji {
+            font-size: 2rem;
+        }
+
+        .type-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border: 3px solid #4facfe;
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.2);
+        }
+
+        .type-card h3 {
+            color: #4facfe;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sub-type {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #43e97b;
+        }
+
+        .sub-type h4 {
+            color: #00f2fe;
+            margin-bottom: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-pills {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Unit 3: Research Design</h1>
+        <p>Blueprint for Research Excellence</p>
+    </div>
+
+    <div class="container">
+        <div class="nav-pills">
+            <button class="nav-pill active" onclick="showSection('concept')">📐 Concept & Definition</button>
+            <button class="nav-pill" onclick="showSection('features')">⭐ Features</button>
+            <button class="nav-pill" onclick="showSection('types')">🔬 Types of Design</button>
+            <button class="nav-pill" onclick="showSection('descriptive')">📊 Descriptive Research</button>
+            <button class="nav-pill" onclick="showSection('causal')">🔗 Causal & Experimental</button>
+            <button class="nav-pill" onclick="showSection('principles')">📏 Principles</button>
+            <button class="nav-pill" onclick="showSection('criteria')">✅ Good Design Criteria</button>
+        </div>
+
+        <!-- CONCEPT SECTION -->
+        <div id="concept" class="section active">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📐</span>Concept of Research Design</h2>
+                <div class="definition-box">
+                    <h3>What is Research Design?</h3>
+                    <p><strong>Definition:</strong> Overall plan of the research in which problem is defined and solution is written properly in a format for data collection, research method, analysis, process and procedures of the research.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📖</span>Key Definitions</h2>
+                <div class="method-card">
+                    <h3>1. C.R. Kothari</h3>
+                    <p>"Research design is the <strong>conceptual structure</strong> within which research is conducted. It constitutes the <strong>blue print</strong> for the collecting, measurement and qualities of data."</p>
+                </div>
+                <div class="method-card">
+                    <h3>2. F.N. Kerlinger</h3>
+                    <p>"Research design is the <strong>plan, structure and strategy</strong> of investigations conceived so as to obtain answer of research question and <strong>control variance</strong>."</p>
+                </div>
+                <div class="method-card">
+                    <h3>3. Modern Definition</h3>
+                    <p>"Research design is the <strong>written plan, structure and strategy</strong> of investigations to solve a research problem and control variance by using <strong>modern methodology</strong> of research."</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🎯</span>Essential Facts for Research Design</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-number">1</div>
+                        <h3>Overall Plan</h3>
+                        <p>Comprehensive plan of the entire study</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">2</div>
+                        <h3>Framework</h3>
+                        <p>Provides the framework of the study</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">3</div>
+                        <h3>Integrated System</h3>
+                        <p>For implementation and integration</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">4</div>
+                        <h3>Roadmap</h3>
+                        <p>Makes study systematic</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">5</div>
+                        <h3>Data Strategy</h3>
+                        <p>Strategy for getting data and information</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">6</div>
+                        <h3>Systematic Plan</h3>
+                        <p>Makes study systematical and modern</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEATURES SECTION -->
+        <div id="features" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">⭐</span>Features of Research Design</h2>
+                
+                <div class="type-card">
+                    <h3><span class="emoji">🔄</span> 1. Reliability</h3>
+                    <p><strong>Definition:</strong> If a research gives same result when same samples are used several times then the research is called reliable.</p>
+                    <div class="highlight-box">
+                        <p><strong>Testing Methods:</strong></p>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Test-retest method</li>
+                            <li>Split half method</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">🎯</span> 2. Objectivity</h3>
+                    <p><strong>Key Points:</strong></p>
+                    <ul style="margin-left: 1.5rem; line-height: 2; margin-top: 1rem;">
+                        <li>Research must be made on the exact objective to be measured</li>
+                        <li>Correct objective reaches correct conclusion without error and biases</li>
+                        <li>Unnecessary questions and twisting subject matter is avoided</li>
+                    </ul>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">✅</span> 3. Validity</h3>
+                    <p><strong>Definition:</strong> Accurate measurement of the concept during the research.</p>
+                    <div class="highlight-box">
+                        <p><strong>Important Considerations:</strong></p>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Can we measure what we want to measure by the questionnaire?</li>
+                            <li>Designing questions is very important</li>
+                            <li>Data is tested and retested to find expected result</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">♻️</span> 4. Replicability (Re-use)</h3>
+                    <p>Researcher completes his/her research once is not sufficient. Next researcher also must be able to do the same in similar way to find the similar result. A design always must be replicable when it is done again by the next one.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">🌍</span> 5. Generalizability</h3>
+                    <p>A result of the research must be true everywhere under the limitation. Research must be done properly in proper way. It can be generalized or not everywhere under the similar condition using the similar method.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TYPES SECTION -->
+        <div id="types" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔬</span>Types of Research Design</h2>
+                
+                <div class="definition-box">
+                    <h3>Classification by Different Experts</h3>
+                    <p><strong>McGrath:</strong> Controlled experiment, Study, Survey, Investigation, Action Research</p>
+                    <p style="margin-top: 0.5rem;"><strong>Baker:</strong> Survey, Experiment, Observation</p>
+                    <p style="margin-top: 0.5rem;"><strong>Cooper:</strong> Explanatory, Descriptive, Casual, Experimentation</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Three Main Types:</h3>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="emoji" style="font-size: 3rem;">📊</div>
+                            <h3>Descriptive Research Design</h3>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji" style="font-size: 3rem;">🔗</div>
+                            <h3>Causal Comparative Design</h3>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji" style="font-size: 3rem;">🧪</div>
+                            <h3>Experimental Research</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESCRIPTIVE SECTION -->
+        <div id="descriptive" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span>Descriptive Research Design</h2>
+                
+                <div class="definition-box">
+                    <h3>What is Descriptive Research?</h3>
+                    <p>It studies the subject of the research in depth and explains the characteristics. It uses the scientific methods for collecting data, classifying them and analyzing them in proper way. It tries to make relationship between the variables and the content.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>Works to be Done:</h3>
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <p>Determination of the study objectives</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <p>Collection of sample</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <p>Fixing the procedures to collect data</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <p>Processing and analyzing data</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <p>Making final reports</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📁</span>1. Case Study</h2>
+                
+                <div class="definition-box">
+                    <h3>Definition</h3>
+                    <p>A strategy for doing research which involves an <strong>empirical investigation</strong> of a particular contemporary phenomenon within a real life context using <strong>multiple sources of evidence</strong>.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>Characteristics:</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Done for particular event or case</li>
+                        <li>Intensive analysis maintaining qualitative analysis</li>
+                        <li>Realistic and dependent on depth of event</li>
+                        <li>May require more time</li>
+                    </ul>
+                </div>
+
+                <div class="method-card">
+                    <h3>Steps for Case Study:</h3>
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <p>Determination of the study objectives</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <p>Making questions and improvements of them</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <p>Making procedures of data collection</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <p>Using various data sources</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <p>Arranging the evidence in certain order</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">6</div>
+                            <p>Explanation of each and every things</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">7</div>
+                            <p>Making final reports and providing suggestions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📈</span>2. Developmental Research Design</h2>
+                
+                <div class="definition-box">
+                    <h3>Definition</h3>
+                    <p>A research is called developmental if it used to predict the upcoming trend considering the changes of the events, human, social and cultural activities. Normally, it tries to follow the trend of the changes of the past, present and future.</p>
+                </div>
+
+                <div class="sub-type">
+                    <h4>a. Longitudinal Growth Study</h4>
+                    <p>Researcher studies an event or problem in different time periods to answer the research question. Data collection is done in different time periods caring the dependent and independent variable.</p>
+                    <div class="highlight-box">
+                        <p><strong>Key Characteristics:</strong></p>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Sample may be same but time must be different</li>
+                            <li>Situation must be different but issue must be same</li>
+                            <li>Measures rate of changes and development</li>
+                            <li>Studies different situations in different intervals</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sub-type">
+                    <h4>b. Trend Study</h4>
+                    <p>Researcher tries to find trend of an activity or event in a certain interval of time to predict the future depending on the past and present situation by the study of the frequency of the studied activity.</p>
+                    <div class="highlight-box">
+                        <p><strong>Example:</strong> Design of clothes is changed according to the fashion of the people adapted in the locality or society by the tailor.</p>
+                    </div>
+                </div>
+
+                <div class="sub-type">
+                    <h4>c. Cross Sectional Growth Study</h4>
+                    <p>Researcher divides a field area into different groups and questions are asked to the respondent at the same time in their respective groups in the frequency of day, week or month.</p>
+                    <div class="highlight-box">
+                        <p><strong>Method:</strong> Done on the basis of the survey using different men for different groups at the same time.</p>
+                    </div>
+                </div>
+
+                <div class="sub-type">
+                    <h4>d. Cohort Study</h4>
+                    <p>Research done among similar people's group having similar character, behavior, age, knowledge, professional norms and situation.</p>
+                    <div class="highlight-box">
+                        <p><strong>Example:</strong> A survey for the Officers selected by PSC of Nepal on 2075.</p>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>Steps for Developmental Research:</h3>
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <p>Define the research problem</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <p>Determining objectives</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <p>Reviewing the literature</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <p>Preparing research design</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <p>Collecting data</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">6</div>
+                            <p>Evaluation of data</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">7</div>
+                            <p>Analysis of the data</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">8</div>
+                            <p>Presenting the results</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">9</div>
+                            <p>Finding proper conclusion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAUSAL & EXPERIMENTAL SECTION -->
+        <div id="causal" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔗</span>Causal Comparative Research Design</h2>
+                
+                <div class="definition-box">
+                    <h3>What is Causal Comparative Research?</h3>
+                    <p>A research design is called causal comparative if it tries to find the cause of the problem. It explains the relationship between the two variables kept on the hypothesis. Also called <strong>Ex-post facto research design</strong> (from Latin: "after the fact").</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>Key Features:</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Finds performance before and after special events</li>
+                        <li>Must have two groups for comparison</li>
+                        <li>Can be conducted in three ways</li>
+                    </ul>
+                </div>
+
+                <div class="method-card">
+                    <h3>Three Ways of Conducting:</h3>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="emoji">📊</div>
+                            <h3>Effect Explanation</h3>
+                            <p>Explanation of effect is made</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">🔍</div>
+                            <h3>Cause Explanation</h3>
+                            <p>Explanation of causes only</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">💥</div>
+                            <h3>Impact Explanation</h3>
+                            <p>Impact of the event is explained</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>Steps for Causal Comparative Research:</h3>
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <p>Define research problem</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <p>Reviewing concern literature</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <p>Formulating hypothesis</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <p>Preparing list of assumptions</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <p>Defining the research process</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">6</div>
+                            <div>
+                                <p><strong>Making a conceptual design:</strong></p>
+                                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                                    <li>Selecting appropriate subject and source material</li>
+                                    <li>Preparing data collection method</li>
+                                    <li>Preparing base for data analysis</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">7</div>
+                            <p>Proving authenticity and reliability</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">8</div>
+                            <p>Analyzing the result</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">9</div>
+                            <p>Interpreting the result concisely</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🧪</span>Experimental Research</h2>
+                
+                <div class="definition-box">
+                    <h3>What is Experimental Research?</h3>
+                    <p>A research is called experimental if researcher really observes different phenomena which is made to occur in a <strong>strictly controlled situation</strong> where one or more variables are valid and others are kept constant. Has aim to see the relationship between variables and formulating hypothesis.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>Key Characteristics:</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Can be done in laboratory or work field</li>
+                        <li>Commonly done in science and its branches</li>
+                        <li>Takes much time and expenses</li>
+                        <li>Field works done in social science and business</li>
+                        <li>Verification done in deductive research</li>
+                        <li>Synthesis done in inductive research</li>
+                    </ul>
+                </div>
+
+                <div class="method-card">
+                    <h3>Steps for Experimental Research:</h3>
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <p>Review literatures related to research problem</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <p>Identify problem properly</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <p>Define problem after identification</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div>
+                                <p><strong>Formulate practical plan:</strong></p>
+                                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                                    <li>Identify factors influencing relationship</li>
+                                    <li>Find affecting factors for controlling variables</li>
+                                    <li>Select research design</li>
+                                    <li>Select sample and respondents</li>
+                                    <li>Select tools and test validity</li>
+                                    <li>Predefine procedure for collecting data</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <p>Formulate null hypothesis</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">6</div>
+                            <p>Reduce data to draw expected result</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">7</div>
+                            <p>Provide result using appropriate method</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRINCIPLES SECTION -->
+        <div id="principles" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📏</span>Basic Principles of Research Design</h2>
+                
+                <div class="definition-box">
+                    <h3>What are Principles?</h3>
+                    <p>Principles are the normal fundamental assumptions of the research. We have to follow at least these norms in the real practice.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">⏰</span> 1. Principle of Timeliness</h3>
+                    <p>Researcher has to specify the time for research and must complete it on the specified time.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">🔄</span> 2. Principle of Flexibility</h3>
+                    <p>Research design and real field work may be different in real practice. Expected and real field may be slightly or highly different and researcher may get problems so design must be flexible to complete it.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">🎯</span> 3. Principle of Objective</h3>
+                    <p>Researcher must make the research design properly to make it specific and objective removing the different unclear views and concepts.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">♻️</span> 4. Principle of Replication</h3>
+                    <p>Researcher must make a research design in such a way that next one can copy it in next purposes and next context to make a theory.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">🔒</span> 5. Principle of Reliability</h3>
+                    <p>Researcher has to make a research design in such a way that the result for the same sample using the same tool must be same. We say this type of design is consistent and the result so obtained is also consistent.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">✅</span> 6. Principle of Validity</h3>
+                    <p>Research design should specify the variables that can measure the things what they want to measure. Validity is integrity of the conclusions that are generated from a piece of research.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">🌍</span> 7. Principle of Generalizability</h3>
+                    <p>Research design must be made in such a way that the result obtained for the sample should be true for the whole population and the other cases except the taken sample too. We must be able to generalize the finding of the research to the normal cases also.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CRITERIA SECTION -->
+        <div id="criteria" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">✅</span>Criteria of Good Research Design</h2>
+                
+                <div class="definition-box">
+                    <h3>What Makes a Good Research Design?</h3>
+                    <p>Good research design depends on utilizing the optimal methodology and study type for the research question. Good research design does not happen by chance. A good design must contain whether it is related to the purpose of the research problem and its nature or not.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">🎯</span> 1. Objectivity</h3>
+                    <p>A research design should permit the measuring instruments which are fairly objective in which every observer or judge scoring the performance must precisely give the same report.</p>
+                    <div class="highlight-box">
+                        <p><strong>Note:</strong> The objectivity of the procedure may be judged by the degree of agreement between the final assigned to individuals by more than one independent observer.</p>
+                    </div>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">🔄</span> 2. Reliability</h3>
+                    <p>Reliability refers to consistency throughout a series of measurement which is repeated many times.</p>
+                    <div class="highlight-box">
+                        <p><strong>Example:</strong> A respondent must give the same answer even if the question is asked many times from different people.</p>
+                    </div>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">✨</span> 3. Feasible</h3>
+                    <p>Good design can be implemented in practice. The designed matters must be easy to the researcher and respondent as well. The tools used and the other things regarding the research must be made easy to execute it depending upon the time and expenditure.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">✅</span> 4. Validity</h3>
+                    <p>Good design is called good from the side of validity if it can measure what it is expected to measure.</p>
+                    <div class="highlight-box">
+                        <p><strong>Example:</strong> If we want to measure intelligence of a person by I.Q question then it must be measured by asking the question.</p>
+                    </div>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">🌐</span> 5. Situational</h3>
+                    <p>Research must not be rigid. We must be able to change it when we work in field or laboratory. Works must be done depending upon the situation also. So it is made flexible to modify depending on the developed conditions.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">⚡</span> 6. Efficient</h3>
+                    <p>Good research must balance the uncertainty and try to make all of them in balanced condition. It should be less costly and include strategies for solving potential threats that may occur while conducting the research.</p>
+                </div>
+
+                <div class="type-card">
+                    <h3><span class="emoji">🌍</span> 7. Generalizability</h3>
+                    <p>Research is done normally to generalize the case. Researcher takes the sample and verification is done within the sample first. If it can be generalized to the whole population and other cases then only it is supposed nice.</p>
+                    <div class="highlight-box">
+                        <h4>Requirements for Generalizability:</h4>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Instrument must be objective, reliable, and valid</li>
+                            <li>Population is clearly defined</li>
+                            <li>Appropriate sample is taken</li>
+                            <li>Proper analysis of statistical tools are followed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            const pills = document.querySelectorAll('.nav-pill');
+            pills.forEach(pill => {
+                pill.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
