@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 5: Data Collection and Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 4px solid #7e22ce;
+        }
+
+        .header h1 {
+            background: linear-gradient(135deg, #1e3c72 0%, #7e22ce 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            animation: slideDown 0.8s ease;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #555;
+            font-size: 1.15rem;
+            font-style: italic;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .nav-pills {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        .nav-pill {
+            padding: 0.9rem 1.8rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
+        }
+
+        .nav-pill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 24px rgba(30, 60, 114, 0.4);
+            background: linear-gradient(135deg, #2a5298 0%, #7e22ce 100%);
+        }
+
+        .nav-pill.active {
+            background: linear-gradient(135deg, #7e22ce 0%, #a855f7 100%);
+            box-shadow: 0 6px 24px rgba(126, 34, 206, 0.4);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            transition: all 0.3s ease;
+            border-top: 5px solid #7e22ce;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.18);
+        }
+
+        .card-title {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #7e22ce 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 700;
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            border-left: 6px solid #1e3c72;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .definition-box h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .definition-box p {
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid #e9d5ff;
+            box-shadow: 0 4px 12px rgba(126, 34, 206, 0.1);
+        }
+
+        .feature-item:hover {
+            border-color: #7e22ce;
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(126, 34, 206, 0.2);
+        }
+
+        .feature-item h3 {
+            color: #7e22ce;
+            margin: 1rem 0;
+            font-size: 1.25rem;
+        }
+
+        .feature-item h4 {
+            color: #1e3c72;
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .feature-number {
+            display: inline-block;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #1e3c72 0%, #7e22ce 100%);
+            color: white;
+            border-radius: 50%;
+            line-height: 55px;
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #1e3c72 0%, #7e22ce 100%);
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #e9d5ff;
+            background: white;
+        }
+
+        .comparison-table tr:hover td {
+            background: #faf5ff;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #faf5ff 100%);
+            padding: 1.8rem;
+            border-radius: 16px;
+            border-left: 6px solid #1e3c72;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .process-step:hover {
+            transform: translateX(12px);
+            box-shadow: 0 8px 24px rgba(126, 34, 206, 0.15);
+            border-left-color: #7e22ce;
+        }
+
+        .step-number {
+            min-width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #1e3c72 0%, #7e22ce 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: bold;
+            box-shadow: 0 4px 16px rgba(30, 60, 114, 0.3);
+        }
+
+        .step-content h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .step-content p {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .method-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #faf5ff 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 1.5rem 0;
+            border: 2px solid #a5b4fc;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        .method-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .method-card p {
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 1rem;
+        }
+
+        .method-card ul {
+            margin-left: 2rem;
+            line-height: 2;
+            color: #444;
+        }
+
+        .method-card ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 16px rgba(252, 211, 77, 0.3);
+            border: 2px solid #fbbf24;
+        }
+
+        .highlight-box h3, .highlight-box h4 {
+            color: #92400e;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .highlight-box ul {
+            margin-left: 2rem;
+            line-height: 2;
+            color: #78350f;
+        }
+
+        .strength-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .strength-item {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .strength-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+        }
+
+        .weakness-item {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .weakness-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+        }
+
+        .emoji {
+            font-size: 2rem;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .info-box strong {
+            color: #1e3a8a;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .column-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid #93c5fd;
+        }
+
+        .column-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-pills {
+                flex-direction: column;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 5px solid #ef4444;
+            margin: 1rem 0;
+        }
+
+        .warning-box h4 {
+            color: #991b1b;
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-box {
+            background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid #a78bfa;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+
+        .formula-box code {
+            color: #5b21b6;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Unit 5: Data Collection and Analysis</h1>
+        <p>Comprehensive Guide to Research Data Management</p>
+    </div>
+
+    <div class="container">
+        <div class="nav-pills">
+            <button class="nav-pill active" onclick="showSection('concept')">💾 Concept of Data</button>
+            <button class="nav-pill" onclick="showSection('types')">📊 Types of Data</button>
+            <button class="nav-pill" onclick="showSection('sources')">🔍 Data Sources</button>
+            <button class="nav-pill" onclick="showSection('collection')">📝 Collection Methods</button>
+            <button class="nav-pill" onclick="showSection('questionnaire')">❓ Questionnaire</button>
+            <button class="nav-pill" onclick="showSection('interview')">🎤 Interview</button>
+            <button class="nav-pill" onclick="showSection('observation')">👁️ Observation</button>
+            <button class="nav-pill" onclick="showSection('analysis')">📈 Data Analysis</button>
+            <button class="nav-pill" onclick="showSection('statistics')">🔢 Statistical Techniques</button>
+        </div>
+
+        <!-- CONCEPT OF DATA SECTION -->
+        <div id="concept" class="section active">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">💾</span>Concept of Data</h2>
+                <div class="definition-box">
+                    <h3>What is Data?</h3>
+                    <p>Information or facts collected through record, observation, or measurement is called data.</p>
+                    <p style="margin-top: 1rem;"><strong>Importance:</strong> Data is essential for making correct research results and is the foundation of decision-making processes.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>💪 The Power of Data</h3>
+                    <p>Data is the main frame and cream part of any work. It helps to deal with everything regarding any discussion. <strong>If somebody talks taking data, the next person has to listen being voiceless - that's the great strength of data!</strong></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📋</span>Data Classification</h2>
+                <div class="two-column">
+                    <div class="column-card">
+                        <h3>By Nature</h3>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Subjective & Objective</li>
+                            <li>Qualitative & Quantitative</li>
+                            <li>Primary & Secondary</li>
+                        </ul>
+                    </div>
+                    <div class="column-card">
+                        <h3>Usage</h3>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Related to final decisions</li>
+                            <li>Essential for research results</li>
+                            <li>Critical for organizational decision-making</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📝</span>Considerations for Data Collection Planning</h2>
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Objective</h3>
+                            <p>Researcher should be clear about the objective of data collection. Study other research to adopt appropriate methods.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Sources of Information</h3>
+                            <p>According to nature of research, choose either primary or secondary sources.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Scope</h3>
+                            <p>Depending on data nature, determine population and sample. Scope relates to the research field and selected topic.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Unit of Data Collection</h3>
+                            <p>Area defined by surveyor while collecting data. Must be clearly defined to avoid wrong data.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Methods of Data Collection</h3>
+                            <p>Choose between census or sample. Collect information from every unit using appropriate methods.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <h3>Unit of Accuracy</h3>
+                            <p>Data must be correct from the beginning. Careful collection ensures correct foundation for research.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TYPES OF DATA SECTION -->
+        <div id="types" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span>Primary vs Secondary Data</h2>
+                
+                <div class="method-card">
+                    <h3>1️⃣ Primary Data</h3>
+                    <p><strong>Definition:</strong> Data collected by the researcher themselves for their specific objective from the real field.</p>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="emoji">❓</div>
+                            <h4>Questionnaire</h4>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">📞</div>
+                            <h4>Phone Contact</h4>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">👁️</div>
+                            <h4>Observation</h4>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">👥</div>
+                            <h4>Group Discussion</h4>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">🎤</div>
+                            <h4>Interview</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>2️⃣ Secondary Data</h3>
+                    <p><strong>Definition:</strong> Data NOT collected by the researcher themselves but obtained from other persons/sources who used it for their own purpose.</p>
+                    <div class="highlight-box">
+                        <h4>Examples:</h4>
+                        <ul>
+                            <li>Census reports</li>
+                            <li>Published research papers</li>
+                            <li>Thesis and dissertations</li>
+                            <li>Governmental publications</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>Important Note:</strong> The same data can be primary or secondary depending on who is using it!
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🎨</span>Qualitative vs Quantitative Data</h2>
+                
+                <div class="two-column">
+                    <div class="column-card">
+                        <h3>Qualitative Data</h3>
+                        <p style="margin-bottom: 1rem;">Dependent on quality and character. Can be observed but NOT measured accurately or tested with statistical tools directly.</p>
+                        <div class="highlight-box" style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);">
+                            <h4 style="color: #831843;">Examples:</h4>
+                            <ul style="color: #831843;">
+                                <li>Kindness</li>
+                                <li>Sadness</li>
+                                <li>Sorrow</li>
+                                <li>Happiness</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="column-card">
+                        <h3>Quantitative Data</h3>
+                        <p style="margin-bottom: 1rem;">Can be measured in certain numbers easily.</p>
+                        <div class="highlight-box" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                            <h4 style="color: #1e3a8a;">Examples:</h4>
+                            <ul style="color: #1e3a8a;">
+                                <li>Area</li>
+                                <li>Cost</li>
+                                <li>Temperature</li>
+                                <li>Volume</li>
+                                <li>Mass</li>
+                                <li>Speed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOURCES OF DATA SECTION -->
+        <div id="sources" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔍</span>Primary Data Sources</h2>
+                <p style="margin-bottom: 1.5rem;">Primary data is collected by researcher to fulfill their aims. Collected only when data is not already available.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="emoji">🎤</div>
+                        <h3>Interview</h3>
+                        <p>Oral questions to respondents with various question types</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">❓</div>
+                        <h3>Questionnaire</h3>
+                        <p>Formal list of questions developed systematically</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">👁️</div>
+                        <h3>Observation</h3>
+                        <p>Watching, observing, listening, analyzing personally</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📚</span>Secondary Data Sources</h2>
+                
+                <div class="method-card">
+                    <h3>1️⃣ Published Sources</h3>
+                    <ul>
+                        <li><strong>Governmental Reports:</strong> Official government publications and statistics</li>
+                        <li><strong>Semi-governmental Organizations:</strong> Reports from quasi-governmental bodies</li>
+                        <li><strong>International Organizations:</strong> WHO, UN, World Bank publications</li>
+                        <li><strong>Private Publications:</strong> Corporate reports, research papers</li>
+                    </ul>
+                </div>
+
+                <div class="method-card">
+                    <h3>2️⃣ Unpublished Sources</h3>
+                    <p>Internal documents, theses, unpublished research papers, organizational records</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>3️⃣ Computerized Databases</h3>
+                    <ul>
+                        <li>CD-ROM databases</li>
+                        <li>Online databases</li>
+                        <li>Google searches</li>
+                        <li>Cloud storage</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">💎</span>Value of Secondary Data in Business Research</h2>
+                
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Supplement Data</h3>
+                            <p>Match primary data with secondary data for comparison and verification to clarify results.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>For Reliability</h3>
+                            <p>Compare primary results with secondary data to check stability and reliability.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>For Comparison</h3>
+                            <p>Maintain quality of research by comparing with existing data.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Reference Purpose</h3>
+                            <p>Use literature review and old reports for proper explanation and reference.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Collecting Primary Data</h3>
+                            <p>Helps define problems, formulate hypotheses, and understand methods and procedures.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <h3>Solving Research Problems</h3>
+                            <p>Provides information to solve problems based on previous research solutions.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">7</div>
+                        <div class="step-content">
+                            <h3>Meta-Analysis</h3>
+                            <p>Study and analyze various materials from books, reports, and online sources.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">8</div>
+                        <div class="step-content">
+                            <h3>Contextual Background</h3>
+                            <p>Study similar problems to write and search background for related topics.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLLECTION METHODS SECTION -->
+        <div id="collection" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📝</span>Primary Data Collection Methods</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="emoji">❓</div>
+                        <h3>Questionnaire</h3>
+                        <p>Gathering information through printed questions filled by respondents</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">🎤</div>
+                        <h3>Research Interview</h3>
+                        <p>Face-to-face purposive conversation to obtain information</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">👁️</div>
+                        <h3>Observation</h3>
+                        <p>Personal watching, observing, and analyzing from real field</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔄</span>Data Processing Steps</h2>
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Editing</h3>
+                            <p>Detecting errors in raw data to improve quality and make accurate</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Coding</h3>
+                            <p>Assigning numbers or symbols to responses in different categories</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Classification</h3>
+                            <p>Separating items systematically into categories or groups</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Tabulation</h3>
+                            <p>Arranging data in rows and columns systematically</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Summarization</h3>
+                            <p>Presenting, describing, analyzing, and interpreting data</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTIONNAIRE SECTION -->
+        <div id="questionnaire" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">❓</span>Questionnaire</h2>
+                
+                <div class="definition-box">
+                    <h3>Definitions</h3>
+                    <p><strong>Wallace & Wallace:</strong> "A questionnaire is means of gathering information by having the respondent fill in answers to the printed questions."</p>
+                    <p style="margin-top: 1rem;"><strong>G.A. Ludberg:</strong> "Fundamentally the questionnaire is a set of stimuli to which people are exposed to answer on the printed question."</p>
+                    <p style="margin-top: 1rem;"><strong>General:</strong> A systematically standardized set of questions to collect responses from respondents on specific topics or issues.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Questionnaire Helps To:</h3>
+                    <ul>
+                        <li>Get information from respondents</li>
+                        <li>Get answers from respondents</li>
+                        <li>Get behavior of respondents</li>
+                        <li>Get understanding of respondents</li>
+                        <li>Get psychological aspects</li>
+                        <li>Gain conceptual understanding of issues</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📋</span>Principles of Questionnaire Writing</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-number">1</div>
+                        <p>Target vocabulary and grammar to population</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">2</div>
+                        <p>Avoid ambiguity, confusion, and vagueness</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">3</div>
+                        <p>Determine context of individual questions</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">4</div>
+                        <p>Avoid leading (major) questions</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">5</div>
+                        <p>Avoid double-barreled questions</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">6</div>
+                        <p>Avoid recall developmental questions</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">7</div>
+                        <p>Don't assume respondents are experts</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">8</div>
+                        <p>Ask single piece of question at a time</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">9</div>
+                        <p>Conduct pilot study and improvements</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">10</div>
+                        <p>Care for respondent's knowledge and condition</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">11</div>
+                        <p>Make ending gentle and friendly</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">12</div>
+                        <p>Avoid any kind of biasness</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">13</div>
+                        <p>Give explicit alternatives</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">14</div>
+                        <p>Care for sensitive issues</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">15</div>
+                        <p>Don't make questions too long</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📄</span>Components of Questionnaire</h2>
+                
+                <div class="method-card">
+                    <h3>Part A: Explanatory Information</h3>
+                    <p>First and most important part providing essential information about the subject.</p>
+                    <ul>
+                        <li>Introduction of researcher</li>
+                        <li>Main objectives of research</li>
+                        <li>Guidelines to answer questionnaire</li>
+                        <li>Assurance of secrecy</li>
+                        <li>Address to deliver answers</li>
+                        <li>Thanks to respondents for participation</li>
+                    </ul>
+                </div>
+
+                <div class="method-card">
+                    <h3>Part B: Main Part</h3>
+                    <p>Contains authentic formal letter and the actual questions.</p>
+                    <ul>
+                        <li>Formal letter with all required information</li>
+                        <li>Number of questions with proper language</li>
+                        <li>Questions vary based on subject matter and respondent level</li>
+                        <li>Different question types as needed</li>
+                    </ul>
+                </div>
+
+                <div class="method-card">
+                    <h3>Part C: Personal Information</h3>
+                    <p>Information about the respondent.</p>
+                    <ul>
+                        <li>Address</li>
+                        <li>Marital status</li>
+                        <li>Age</li>
+                        <li>Qualification</li>
+                        <li>Occupation</li>
+                        <li>Other necessary information</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔬</span>Pilot Testing</h2>
+                <div class="definition-box">
+                    <p>Process of improving questions and answers before finalizing the questionnaire pattern. A few questions given to few similar respondents for testing.</p>
+                </div>
+
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Select Similar Sample</h3>
+                            <p>Choose sample similar to target field</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Conduct Pilot Survey</h3>
+                            <p>Test questionnaire with selected sample</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Gather Suggestions</h3>
+                            <p>Collect feedback from pilot respondents</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Mark Indications</h3>
+                            <p>Note all indications from respondents</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Make Modifications</h3>
+                            <p>Revise questions based on feedback</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span>Questionnaire Administration Metrics</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="emoji">📞</div>
+                        <h3>Contact Rate</h3>
+                        <p>Ratio of appropriate persons contacted. Higher contact rate = higher performance</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">✅</div>
+                        <h3>Response Rate</h3>
+                        <p>Ratio between contacted persons and number of responses. Low rate decreases reliability</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">📝</div>
+                        <h3>Completeness Rate</h3>
+                        <p>Comparison between complete and incomplete information. Poor result = poor administration</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">🎯</div>
+                        <h3>Accuracy Rate</h3>
+                        <p>Ratio of measurement of true value. High accuracy = good questionnaire</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INTERVIEW SECTION -->
+        <div id="interview" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🎤</span>Research Interview</h2>
+                
+                <div class="definition-box">
+                    <h3>What is Interview?</h3>
+                    <p><strong>N.H. Gopal:</strong> "Interview is conversation with a purpose and therefore is more than oral exchange of information."</p>
+                    <p style="margin-top: 1rem;"><strong>General Definition:</strong> Face-to-face purposive conversation to get information, interest, attitudes, behavior, and perception of the person related to research or concern issue.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Features of Research Interview</h3>
+                    <ul>
+                        <li>Must be purposive to obtain objective</li>
+                        <li>Sufficient time should be given for full information</li>
+                        <li>Appropriate and easy words and language used</li>
+                        <li>Capacity of respondent must be considered</li>
+                        <li>Interviewer should listen carefully</li>
+                        <li>No directions given to respondent while asking</li>
+                        <li>Interviewer must have art of interview</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔍</span>Types of Research Interview</h2>
+                
+                <div class="method-card">
+                    <h3>1️⃣ Personal / Face-to-Face Interview</h3>
+                    <p>Most popular way of interview. Conducted in office, home, or special arranged place. Interviewer can watch activities like eyes, facial expressions, confidence level, gestures.</p>
+                    
+                    <div class="two-column" style="margin-top: 1rem;">
+                        <div>
+                            <h4 style="color: #10b981; margin-bottom: 0.5rem;">✅ Advantages</h4>
+                            <ul style="margin-left: 1.5rem;">
+                                <li>Detail information can be taken</li>
+                                <li>Real and clear information</li>
+                                <li>Attitude can be understood</li>
+                                <li>Non-verbal data collected</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #ef4444; margin-bottom: 0.5rem;">❌ Disadvantages</h4>
+                            <ul style="margin-left: 1.5rem;">
+                                <li>Too expensive for several respondents</li>
+                                <li>Consumes much time</li>
+                                <li>Unknown interviewer may not get truth</li>
+                                <li>Nothing can be done if no answer</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 1rem;">
+                        <strong>Considerations:</strong>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Appropriate to collect data</li>
+                            <li>Costly method</li>
+                            <li>Interviewer must be expert</li>
+                            <li>Takes much time</li>
+                            <li>Be careful for reliability if using surveyor</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>2️⃣ Telephone Interview</h3>
+                    <p>Used when respondents are spread across different locations. Becoming popular as respondents can be anywhere. Possible regardless of distance.</p>
+                    
+                    <div class="two-column" style="margin-top: 1rem;">
+                        <div>
+                            <h4 style="color: #10b981; margin-bottom: 0.5rem;">✅ Advantages</h4>
+                            <ul style="margin-left: 1.5rem;">
+                                <li>Reliable</li>
+                                <li>Flexible</li>
+                                <li>Cheaper</li>
+                                <li>Less time consuming</li>
+                                <li>Higher response rate</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #ef4444; margin-bottom: 0.5rem;">❌ Disadvantages</h4>
+                            <ul style="margin-left: 1.5rem;">
+                                <li>Chance of incomplete information</li>
+                                <li>Limited respondents only</li>
+                                <li>High biasness</li>
+                                <li>Expressions cannot be seen</li>
+                                <li>Confidence cannot be watched</li>
+                                <li>Full information may not come</li>
+                                <li>Not as effective as face-to-face</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>3️⃣ Computer Assisted Interview (CAI)</h3>
+                    <p>Modern method using laptop and software for data collection. Makes processing, synthesis, presentation, and interpretation easier. Interviewer reads questions and enters answers directly in computer.</p>
+                    
+                    <div class="feature-grid" style="margin-top: 1rem;">
+                        <div class="feature-item">
+                            <div class="emoji">💻</div>
+                            <h4>CAPI</h4>
+                            <p>Computer Assisted Personal Interview - Face to face mode</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">📞</div>
+                            <h4>CATI</h4>
+                            <p>Computer Assisted Telephone Interview</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">🖥️</div>
+                            <h4>CASI</h4>
+                            <p>Computer Assisted Self-interviewing - Laptop given to person to fill themselves</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 1rem;">
+                        <strong>Software:</strong> Blaise software widely used. Started by UK Army in 1990. Example use: Criminal cases
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">➕</span>Additional Interview Methods</h2>
+                
+                <div class="method-card">
+                    <h3>4️⃣ Focus Group Interview</h3>
+                    <p>Collecting more details from small group over longer time. Helps find reality of particular issues. Can be recorded in computer. Gathered for special purposes. Must be real-based cases for finding truth.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>5️⃣ Depth Interview</h3>
+                    <p>Open type computer-based interview with detailed recording. Respondent gives full details of issue or answers. Collects everything including gesture, reaction, loyalty, capacity, anger, etc.</p>
+                    <div class="highlight-box" style="margin-top: 1rem;">
+                        <h4>Examples:</h4>
+                        <ul>
+                            <li>Criminal cases</li>
+                            <li>Job interviews</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OBSERVATION SECTION -->
+        <div id="observation" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">👁️</span>Observation Method</h2>
+                
+                <div class="definition-box">
+                    <h3>What is Observation?</h3>
+                    <p>A method of primary data collection where the researcher observes, analyzes, and interprets the event, field, or work personally without using any medium.</p>
+                    <p style="margin-top: 1rem;">Researcher reaches required field to make visualization, listening, reading, and keep records in suitable way. May touch, read, watch, smell, measure, etc.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Why Observation is Considered Best:</h3>
+                    <ul>
+                        <li>Direct personal experience</li>
+                        <li>Real-time data collection</li>
+                        <li>Multiple sensory inputs</li>
+                        <li>Contextual understanding</li>
+                        <li>Reliability increases with real-based cases</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔬</span>Types of Observation</h2>
+                
+                <div class="method-card">
+                    <h3>1️⃣ Structured vs Unstructured Observation</h3>
+                    <div class="two-column">
+                        <div class="column-card">
+                            <h3>Structured</h3>
+                            <p>Observation done systematically with all tools, ways, frequency, and special procedures.</p>
+                            <p style="margin-top: 1rem;"><strong>Use:</strong> Normally used in scientific research</p>
+                        </div>
+                        <div class="column-card">
+                            <h3>Unstructured</h3>
+                            <p>Observation without systematic form or special procedures.</p>
+                            <p style="margin-top: 1rem;"><strong>Use:</strong> General observations and exploratory research</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>2️⃣ Participative vs Non-Participative Observation</h3>
+                    <div class="two-column">
+                        <div class="column-card">
+                            <h3>Non-Participative</h3>
+                            <p>Observer observes without giving information to participants or people.</p>
+                            <p style="margin-top: 1rem;"><strong>Benefit:</strong> Natural behavior observed</p>
+                        </div>
+                        <div class="column-card">
+                            <h3>Participative</h3>
+                            <p>Observer gives information to participants about the observation.</p>
+                            <p style="margin-top: 1rem;"><strong>Benefit:</strong> Better cooperation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>3️⃣ Controlled vs Uncontrolled Observation</h3>
+                    <div class="two-column">
+                        <div class="column-card">
+                            <h3>Controlled</h3>
+                            <p>Done with well pre-plan and sufficient preparations including equipment and formats.</p>
+                            <p style="margin-top: 1rem;"><strong>Setting:</strong> Laboratory or special places</p>
+                        </div>
+                        <div class="column-card">
+                            <h3>Uncontrolled</h3>
+                            <p>Observer observes without any special plan.</p>
+                            <p style="margin-top: 1rem;"><strong>Setting:</strong> Natural environment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATA ANALYSIS SECTION -->
+        <div id="analysis" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📈</span>Data Analysis</h2>
+                
+                <div class="definition-box">
+                    <h3>Definition</h3>
+                    <p>Data analysis is a process of data gathering, arranging, classifying, modeling, summarizing, and presenting in different graphical models for making proper decisions using different mathematical techniques.</p>
+                    <p style="margin-top: 1rem;"><strong>Important:</strong> Data analysis is NOT done in single step but in several steps.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔄</span>Data Processing Procedures</h2>
+                
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Editing Data</h3>
+                            <p>Detecting errors in raw data to improve quality</p>
+                            <div style="margin-top: 0.5rem;">
+                                <strong>Objectives:</strong> Make accurate, consistent, uniform; arrange uniformly; ready for coding
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Coding</h3>
+                            <p>Assigning numbers or symbols to responses in different groups</p>
+                            <div style="margin-top: 0.5rem;">
+                                <strong>Example:</strong> Male=1, Female=2, Other=3
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Classification</h3>
+                            <p>Separating different items systematically into categories</p>
+                            <div style="margin-top: 0.5rem;">
+                                <strong>Types:</strong> Geographical, Chronological, Qualitative, Quantitative
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Tabulation</h3>
+                            <p>Arranging data in rows and columns systematically</p>
+                            <div style="margin-top: 0.5rem;">
+                                <strong>Purpose:</strong> Easy to understand and compare
+                            </div>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Summarization</h3>
+                            <p>Presenting, describing, analyzing, and interpreting data</p>
+                            <div style="margin-top: 0.5rem;">
+                                <strong>Tools:</strong> Tables, charts, line diagrams, interpretation
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">✏️</span>Editing Data - Rules</h3>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-number">1</div>
+                        <p>Make normal relationship between interviewer and interviewee</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">2</div>
+                        <p>Don't arrange original data with same ink</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">3</div>
+                        <p>Use different colors to edit</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">4</div>
+                        <p>Write amended matters with next color ink</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">5</div>
+                        <p>Sign initial with date and rewrite edited date</p>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 1.5rem;">
+                    <strong>Example:</strong> If respondent wrote "no. of children: 2" but marital status is "unmarried", then marital status should be edited as unmarried person has no children.
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔢</span>Coding - Rules</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="emoji">1️⃣</div>
+                        <p>Make codes for categorical data</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">2️⃣</div>
+                        <p>Codes must be defined</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">3️⃣</div>
+                        <p>Meaning of codes must be defined</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">4️⃣</div>
+                        <p>Code should be appropriate</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">5️⃣</div>
+                        <p>Code should be mutually exclusive</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span>Types of Classification</h2>
+                
+                <div class="method-card">
+                    <h3>1️⃣ Geographical Classification</h3>
+                    <p>Classification according to geographical area.</p>
+                    <table class="comparison-table" style="margin-top: 1rem;">
+                        <tr>
+                            <th>Province No</th>
+                            <th>No of High Quality Manpower</th>
+                        </tr>
+                        <tr><td>Province 1</td><td>20</td></tr>
+                        <tr><td>Province 2</td><td>30</td></tr>
+                        <tr><td>Province 3</td><td>50</td></tr>
+                        <tr><td>Province 4</td><td>15</td></tr>
+                    </table>
+                </div>
+
+                <div class="method-card">
+                    <h3>2️⃣ Chronological Classification</h3>
+                    <p>Classification according to time frame.</p>
+                    <table class="comparison-table" style="margin-top: 1rem;">
+                        <tr>
+                            <th>Years</th>
+                            <th>Production</th>
+                        </tr>
+                        <tr><td>2070</td><td>300</td></tr>
+                        <tr><td>2071</td><td>500</td></tr>
+                        <tr><td>2072</td><td>600</td></tr>
+                        <tr><td>2073</td><td>400</td></tr>
+                    </table>
+                </div>
+
+                <div class="method-card">
+                    <h3>3️⃣ Qualitative Classification</h3>
+                    <p>Classification showing quality of data.</p>
+                    <table class="comparison-table" style="margin-top: 1rem;">
+                        <tr>
+                            <th>Gender</th>
+                            <th>No</th>
+                        </tr>
+                        <tr><td>Male</td><td>20</td></tr>
+                        <tr><td>Female</td><td>30</td></tr>
+                        <tr><td><strong>Total</strong></td><td><strong>50</strong></td></tr>
+                    </table>
+                </div>
+
+                <div class="method-card">
+                    <h3>4️⃣ Quantitative Classification</h3>
+                    <p>Classification arranged in class intervals.</p>
+                    <table class="comparison-table" style="margin-top: 1rem;">
+                        <tr>
+                            <th>Salary</th>
+                            <th>No of Workers</th>
+                        </tr>
+                        <tr><td>10000-15000</td><td>300</td></tr>
+                        <tr><td>15000-20000</td><td>500</td></tr>
+                        <tr><td>20000-25000</td><td>600</td></tr>
+                        <tr><td>25000-30000</td><td>400</td></tr>
+                        <tr><td><strong>Total</strong></td><td><strong>2500</strong></td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📋</span>Tabulation</h2>
+                
+                <div class="definition-box">
+                    <h3>Advantages of Tabulation</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Makes easy to understand</li>
+                        <li>Facilitates comparison</li>
+                        <li>Helps to save time</li>
+                        <li>Avoids repetition</li>
+                        <li>Easy to remember</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Parts of a Table</h3>
+                    <ul>
+                        <li>Number of table</li>
+                        <li>Title of table</li>
+                        <li>Column caption</li>
+                        <li>Title of row</li>
+                        <li>Body of the table</li>
+                        <li>Head note</li>
+                        <li>Foot note</li>
+                        <li>Source</li>
+                    </ul>
+                </div>
+
+                <div class="method-card">
+                    <h3>Rules for Tabulating Data</h3>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="emoji">📏</div>
+                            <p>Size should be proper</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">🎯</div>
+                            <p>According to research objective</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">📊</div>
+                            <p>Units on header row/column</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">✨</div>
+                            <p>Should be attractive</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">📝</div>
+                            <p>Captions kept properly</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">✅</div>
+                            <p>All parts written properly</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">🔤</div>
+                            <p>Proper fonts and size</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">🎨</div>
+                            <p>Content should be suitable</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span>Presenting Data</h2>
+                
+                <div class="method-card">
+                    <h3>Methods of Data Presentation</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 2;">
+                        <li><strong>Tables:</strong> Simple, Complex, Three-way table</li>
+                        <li><strong>Graphs:</strong> Time series, Scattered, Linear graph, Line graph</li>
+                        <li><strong>Diagrams:</strong> Bar diagram (simple, subdivided, percentage, multiple), Pie-chart</li>
+                    </ul>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="emoji">📊</div>
+                        <h3>Bar Diagram</h3>
+                        <p>Visual representation using rectangular bars</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">🥧</div>
+                        <h3>Pie Chart</h3>
+                        <p>Circular chart divided into slices</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">📈</div>
+                        <h3>Line Graph</h3>
+                        <p>Shows trends over time</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">⚫</div>
+                        <h3>Scatter Plot</h3>
+                        <p>Shows relationship between variables</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🧪</span>Qualitative Data Analysis</h2>
+                
+                <div class="definition-box">
+                    <p>Data expressed not in the form of numbers are qualitative data. The techniques to analyze them is called qualitative data analysis.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>1️⃣ Content Analysis</h3>
+                    <p>Research technique for systematic qualitative data collected through interviews, questionnaires, and verbal expressions.</p>
+                    <div class="highlight-box" style="margin-top: 1rem;">
+                        <h4>Steps:</h4>
+                        <ul>
+                            <li>Identify essential data</li>
+                            <li>Develop bases for tabulation</li>
+                            <li>Develop bases for content analysis</li>
+                            <li>Develop the design</li>
+                            <li>Classify the groups</li>
+                            <li>Establish procedure</li>
+                            <li>Prepare outline of analysis</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>2️⃣ Narrative Analysis</h3>
+                    <p>Technique of recording and analyzing information based on stories of respondents related to an event or subject matter. Widely used in social science.</p>
+                    <div class="highlight-box" style="margin-top: 1rem;">
+                        <h4>Steps:</h4>
+                        <ul>
+                            <li>Obtain data</li>
+                            <li>Focus on real matter</li>
+                            <li>Codify symbols and signs</li>
+                            <li>Identify relationships among classes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>3️⃣ Thematic Analysis</h3>
+                    <p>Main points or events are selected and major things identified for analyzing and making final reports. Process of searching themes and finding important descriptions.</p>
+                    <div class="highlight-box" style="margin-top: 1rem;">
+                        <h4>Steps:</h4>
+                        <ul>
+                            <li>Review previous literature</li>
+                            <li>Generate initial codes</li>
+                            <li>Search main theme</li>
+                            <li>Review themes</li>
+                            <li>Define and name them</li>
+                            <li>Prepare reports</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATISTICAL TECHNIQUES SECTION -->
+        <div id="statistics" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔢</span>Statistical Techniques</h2>
+                
+                <div class="two-column">
+                    <div class="column-card">
+                        <h3>Descriptive Statistics</h3>
+                        <p>Statistics that explain fundamental characters of data.</p>
+                        <ul style="margin-left: 1.5rem; line-height: 2; margin-top: 1rem;">
+                            <li>Frequencies</li>
+                            <li>Percentage</li>
+                            <li>Measure of Centre</li>
+                            <li>Measure of Spread</li>
+                            <li>Measure of Distribution</li>
+                        </ul>
+                    </div>
+                    <div class="column-card">
+                        <h3>Inferential Statistics</h3>
+                        <p>Statistics that help estimate population from sample analysis.</p>
+                        <ul style="margin-left: 1.5rem; line-height: 2; margin-top: 1rem;">
+                            <li>Parametric Methods</li>
+                            <li>Non-Parametric Methods</li>
+                            <li>Hypothesis Testing</li>
+                            <li>Estimation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📐</span>Descriptive Statistics Measures</h2>
+                
+                <div class="method-card">
+                    <h3>Measures of Central Tendency</h3>
+                    <div class="formula-box">
+                        <code>Mean = Σx / n</code>
+                    </div>
+                    <div class="formula-box">
+                        <code>Weighted Mean = (w₁x₁ + w₂x₂ + ... + wₙxₙ) / (w₁ + w₂ + ... + wₙ)</code>
+                    </div>
+                    <div class="formula-box">
+                        <code>Geometric Mean = ⁿ√(x₁ × x₂ × x₃ × ... × xₙ)</code>
+                    </div>
+                    <div class="info-box" style="margin-top: 1rem;">
+                        <strong>Also includes:</strong> Median and Mode
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>Measures of Dispersion</h3>
+                    <div class="formula-box">
+                        <code>Range = Largest - Smallest</code>
+                    </div>
+                    <div class="formula-box">
+                        <code>Coefficient of Range = (L - S) / (L + S)</code>
+                    </div>
+                    <div class="formula-box">
+                        <code>Standard Deviation = √[Σ(x - m)² / n]</code>
+                    </div>
+                    <div class="formula-box">
+                        <code>Variance = Σ(x - m)² / n</code>
+                    </div>
+                    <div class="formula-box">
+                        <code>Coefficient of Variation = (σ / m) × 100</code>
+                    </div>
+                    <div class="info-box" style="margin-top: 1rem;">
+                        <strong>Also includes:</strong> Quartiles (Q₁, Q₃), Quartile Deviation, Mean Deviation
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔬</span>Inferential Statistics</h2>
+                
+                <div class="two-column">
+                    <div class="column-card">
+                        <h3>Parametric Methods</h3>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Estimates relationships of variables in population</li>
+                            <li>Sample size > 20</li>
+                            <li>Has normal distribution</li>
+                            <li>Examples: Mode, Linear Regression</li>
+                        </ul>
+                    </div>
+                    <div class="column-card">
+                        <h3>Non-Parametric Methods</h3>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Data is ordinal</li>
+                            <li>Sample size < 20</li>
+                            <li>No normal distribution</li>
+                            <li>Limited calculation power</li>
+                            <li>Examples: Chi-square test, Median test, Binomial test</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🧪</span>Hypothesis Testing: Z-Test</h2>
+                
+                <div class="definition-box">
+                    <h3>Z-Test Characteristics</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Parametric test with normally distributed population</li>
+                        <li>Normal distribution graph is bell-shaped</li>
+                        <li>Compares observed (calculated) vs tabulated (probable) value</li>
+                        <li>Used for large population (sample size > 30)</li>
+                        <li>Population must be normally distributed</li>
+                    </ul>
+                </div>
+
+                <div class="formula-box">
+                    <code>Z = (m - μ) / (σ / √n)</code>
+                </div>
+
+                <div class="method-card">
+                    <h3>Interpretation</h3>
+                    <p><strong>Null Hypothesis (H₀):</strong> Average population is μ₀</p>
+                    <p style="margin-top: 0.5rem;"><strong>Alternative Hypothesis (H₁):</strong></p>
+                    <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                        <li>μ ≠ μ₀ (Two-tailed test)</li>
+                        <li>μ < μ₀ (Left-tailed test)</li>
+                        <li>μ > μ₀ (Right-tailed test)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span>Hypothesis Testing: T-Test</h2>
+                
+                <div class="definition-box">
+                    <h3>When to Use T-Test</h3>
+                    <p>Used when standard deviation is unknown and sample size is small. Compares tabulated value with calculated value.</p>
+                </div>
+
+                <div class="formula-box">
+                    <code>t = (m - μ) / (s / √n)</code>
+                </div>
+
+                <div class="formula-box">
+                    <code>Degrees of Freedom (df) = n - 1</code>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Example Problem</h3>
+                    <p><strong>Given:</strong> Sample of 100 vehicles, mean = 52.5 km, standard deviation = 14, population mean = 50 km</p>
+                    <p style="margin-top: 0.5rem;"><strong>Significance level:</strong> 5% (0.05)</p>
+                    <p style="margin-top: 0.5rem;"><strong>df:</strong> 100 - 1 = 99</p>
+                    <p style="margin-top: 0.5rem;"><strong>Tabulated value:</strong> 1.66</p>
+                    <p style="margin-top: 0.5rem;"><strong>Calculated value:</strong> t = (52.5 - 50) / (14 / √100) = 1.786</p>
+                    <p style="margin-top: 1rem; font-weight: bold;">Interpretation: Calculated value (1.786) > Tabulated value (1.66), so vehicles run more than 50 km using 10 litres</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">χ²</span>Chi-Square Test</h2>
+                
+                <div class="definition-box">
+                    <h3>Chi-Square Test Overview</h3>
+                    <p>Non-parametric test where distribution is unknown. Compares observed and expected frequencies.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>1️⃣ One Sample Test</h3>
+                    <p>Null hypothesis set using single sample to find difference between observed and expected frequencies.</p>
+                    
+                    <div class="formula-box" style="margin-top: 1rem;">
+                        <code>χ² = Σ[(Oᵢ - Eᵢ)² / Eᵢ]</code>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 1rem;">
+                        <strong>Where:</strong>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>Oᵢ = Observed number in i-th category</li>
+                            <li>Eᵢ = Expected number in i-th category</li>
+                            <li>k = Number of categories</li>
+                        </ul>
+                    </div>
+
+                    <div class="formula-box">
+                        <code>df = k - 1</code>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>2️⃣ Two Independent Sample Test</h3>
+                    <p>Compares two independent samples.</p>
+                    
+                    <div class="formula-box" style="margin-top: 1rem;">
+                        <code>χ² = ΣΣ[(Oᵢⱼ - Eᵢⱼ)² / Eᵢⱼ]</code>
+                    </div>
+
+                    <div class="formula-box">
+                        <code>df = (r - 1)(c - 1)</code>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 1rem;">
+                        <strong>Where:</strong>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                            <li>r = Number of rows</li>
+                            <li>c = Number of columns</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h3>Hypothesis Testing Steps</h3>
+                    <ol style="margin-left: 2rem; line-height: 2;">
+                        <li>Set H₀: Oᵢ = Eᵢ (Null hypothesis)</li>
+                        <li>Set H₁: Oᵢ ≠ Eᵢ (Alternative hypothesis)</li>
+                        <li>Divide observations into nominal groups</li>
+                        <li>Choose significance level (0.01 or 0.05)</li>
+                        <li>Apply formula</li>
+                        <li>Find critical value using df and significance level</li>
+                        <li>Interpret: If calculated > tabulated, reject H₀</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📈</span>Additional Statistical Tests</h2>
+                
+                <div class="method-card">
+                    <h3>Correlation</h3>
+                    <p>Measures relationship between two variables.</p>
+                    <div class="formula-box" style="margin-top: 1rem;">
+                        <code>r = [NΣxy - (Σx)(Σy)] / √{[NΣx² - (Σx)²][NΣy² - (Σy)²]}</code>
+                    </div>
+                </div>
+
+                <div class="method-card">
+                    <h3>Regression Analysis</h3>
+                    <p>Predicts value of one variable based on another.</p>
+                    <div class="highlight-box" style="margin-top: 1rem;">
+                        <h4>Regression Lines:</h4>
+                        <ul>
+                            <li>X on Y</li>
+                            <li>Y on X</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span>Normal Distribution</h2>
+                
+                <div class="definition-box">
+                    <h3>Special Condition</h3>
+                    <p style="font-size: 1.3rem; text-align: center; margin: 1.5rem 0;">
+                        <strong>Mean = Median = Mode</strong>
+                    </p>
+                    <p>When this condition is met, the distribution is perfectly normal and symmetrical, forming a bell-shaped curve.</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="emoji">🔔</div>
+                        <h3>Bell Shape</h3>
+                        <p>Graph is symmetrical and bell-shaped</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">⚖️</div>
+                        <h3>Symmetrical</h3>
+                        <p>Equal distribution on both sides</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">🎯</div>
+                        <h3>Central Tendency</h3>
+                        <p>All measures converge at center</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            const pills = document.querySelectorAll('.nav-pill');
+            pills.forEach(pill => {
+                pill.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
