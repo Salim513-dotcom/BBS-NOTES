@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Measurement, Scaling and Sampling - Unit 4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            color: #f5576c;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            animation: slideDown 0.8s ease;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .nav-pills {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-pill {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-pill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-pill.active {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #f5576c;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, #f093fb15 0%, #f5576c15 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid #f5576c;
+            margin: 1rem 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #fa709a15 0%, #fee14015 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-item:hover {
+            border-color: #f5576c;
+            transform: scale(1.05);
+        }
+
+        .feature-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            background: white;
+        }
+
+        .comparison-table tr:hover td {
+            background: #fff5f7;
+        }
+
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #fff5f7 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid #f5576c;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            min-width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .method-card {
+            background: linear-gradient(135deg, #f093fb10 0%, #f5576c10 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border: 2px solid #f093fb30;
+        }
+
+        .method-card h3 {
+            color: #f5576c;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(253, 203, 110, 0.3);
+        }
+
+        .variable-box {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border: 3px solid #f5576c;
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.2);
+        }
+
+        .variable-box h3 {
+            color: #f5576c;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .emoji {
+            font-size: 2rem;
+        }
+
+        .scale-example {
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border-left: 5px solid #00acc1;
+        }
+
+        .error-box {
+            background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border-left: 5px solid #e57373;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-pills {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Unit 4: Measurement, Scaling and Sampling</h1>
+        <p>Mastering Research Methodologies</p>
+    </div>
+
+    <div class="container">
+        <div class="nav-pills">
+            <button class="nav-pill active" onclick="showSection('variables')">🔢 Variables</button>
+            <button class="nav-pill" onclick="showSection('measurement')">📏 Measurement</button>
+            <button class="nav-pill" onclick="showSection('scaling')">⚖️ Scaling</button>
+            <button class="nav-pill" onclick="showSection('attitude')">💭 Attitude Scales</button>
+            <button class="nav-pill" onclick="showSection('business-scales')">📊 Business Scales</button>
+            <button class="nav-pill" onclick="showSection('sampling')">🎯 Sampling</button>
+            <button class="nav-pill" onclick="showSection('sampling-types')">📋 Sampling Types</button>
+            <button class="nav-pill" onclick="showSection('errors')">⚠️ Errors</button>
+        </div>
+
+        <!-- VARIABLES SECTION -->
+        <div id="variables" class="section active">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔢</span>What is a Variable?</h2>
+                
+                <div class="method-card">
+                    <h3>1. P.V. Young</h3>
+                    <p>"A variable is any <strong>quantity or characteristic</strong> which may possess different numerical values or categories."</p>
+                </div>
+                
+                <div class="method-card">
+                    <h3>2. F.N. Kerlinger</h3>
+                    <p>"A variable is a <strong>symbol</strong> to which numerals or values are assigned."</p>
+                </div>
+                
+                <div class="method-card">
+                    <h3>3. General Definition</h3>
+                    <p>"Variable is a <strong>symbolic representation</strong> which represents quality or quantity to measure or fix something."</p>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>Note:</strong> Variables are denoted by the characters of English alphabets: x, y, z in different formulas and practice. Statistical tools, formulae and many more are fully dependent on the variable and some constants.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🎯</span>Types of Variables</h2>
+                
+                <div class="variable-box">
+                    <h3><span class="emoji">1️⃣</span> Independent Variable</h3>
+                    <p><strong>Definition:</strong> A variable is called independent if it affects the dependent variable either in the positive or negative way. It does not change due to change of the dependent variable.</p>
+                    <div class="scale-example">
+                        <p><strong>Example:</strong> Employee stress decreases the performance of the employee.</p>
+                        <p style="margin-top: 0.5rem;">Stress (Independent) → Performance (Dependent)</p>
+                        <p style="margin-top: 0.5rem;"><strong>Relationship:</strong> Cause → Result (but not Result → Cause)</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3><span class="emoji">2️⃣</span> Dependent Variable</h3>
+                    <p><strong>Definition:</strong> A variable is called dependent if it is affected by the change in independent variable.</p>
+                    <div class="scale-example">
+                        <p><strong>Examples:</strong></p>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li>New product development (Ind) → increases sales (Dep)</li>
+                            <li>Salary and benefits' increment → increases employee commitment</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3><span class="emoji">3️⃣</span> Moderating Variable</h3>
+                    <p><strong>Definition:</strong> A variable is called moderating if it helps to develop a relationship between the dependent variable and independent variable. It can be thought as a third variable.</p>
+                    <div class="scale-example">
+                        <p><strong>Example 1:</strong></p>
+                        <p>Working Groups' Diversity (Ind) → Managerial Effectiveness (Mod) → Organizational Effectiveness (Dep)</p>
+                        <p style="margin-top: 1rem;"><strong>Example 2:</strong></p>
+                        <p>Management Style (Ind) → Employee Stress (Mod) → Employee Retention (Dep)</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3><span class="emoji">4️⃣</span> Intervening Variable</h3>
+                    <p><strong>Definition:</strong> A variable is called intervening if it affects the dependent variable and independent variables directly or indirectly.</p>
+                    <p style="margin-top: 1rem;">We may or may not know the cause and effect in many cases. We may see some cases just from the surface but depth may be another.</p>
+                    <div class="scale-example">
+                        <p><strong>Example:</strong></p>
+                        <p>Effective Training (Ind) → Managerial Effectiveness (Intervening) → Employee Commitment (Dep)</p>
+                        <p style="margin-top: 1rem;"><strong>Analysis:</strong> Effective training increases employee commitment. This statement is almost supposed true in practice but it is not true in all cases. Its impact is not similar everywhere. If employee has more job tenure then they have more commitment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEASUREMENT SECTION -->
+        <div id="measurement" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📏</span>Concept of Measurement</h2>
+                
+                <div class="definition-box">
+                    <h3>What is Measurement?</h3>
+                    <p>Assigning symbols or numbers to any product or event or issue or characteristics using a specified rule is called measurement.</p>
+                    <p style="margin-top: 1rem;"><strong>Note:</strong> Measuring physical quantities is very easy in practice but qualitative types of any issues' measurement is not so easy.</p>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Physical vs Qualitative Measurement:</h4>
+                    <p><strong>Easy to measure:</strong> Length, height, mass, etc.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Difficult to measure:</strong> Sadness, satisfaction, happiness, etc.</p>
+                </div>
+
+                <div class="scale-example">
+                    <h4>Example - Measuring Satisfaction:</h4>
+                    <table style="width: 100%; margin-top: 1rem;">
+                        <tr>
+                            <td><strong>Satisfaction Level:</strong></td>
+                            <td>Highly Satisfied</td>
+                            <td>Satisfied</td>
+                            <td>Less Satisfied</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Assigned Number:</strong></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📖</span>Definitions of Measurement</h2>
+                
+                <div class="method-card">
+                    <h3>1. Cooper & Schindler</h3>
+                    <p>"Measurement in research consists of <strong>assigning numbers to empirical events or objects or properties or activities</strong> in compliance with a set of rules."</p>
+                </div>
+                
+                <div class="method-card">
+                    <h3>2. S. Stevens</h3>
+                    <p>"Measurement is the equipment of providing <strong>numbers to objects or events</strong> according to a rule."</p>
+                </div>
+                
+                <div class="method-card">
+                    <h3>3. General Definition</h3>
+                    <p>"Measurement is a rule of tools which provides a <strong>series of numbers</strong> to the series of the characteristic of events, products or any things."</p>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>Important Note:</strong> Measurement is also a composition of selection of observable empirical events, developing a set of applying rules to each observation. Its importance is very high in research so it must be studied very nicely and carefully.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">⭐</span>Characteristics of Good Measurement</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-number">1</div>
+                        <h3>Validity</h3>
+                        <p>(प्रामाणिकता)</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">2</div>
+                        <h3>Reliability</h3>
+                        <p>(विश्वसनीयता)</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-number">3</div>
+                        <h3>Practicability</h3>
+                        <p>(व्यवहारिकता)</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>I. Validity</h3>
+                    <p>Validity refers to the extent you are measuring what you to measure which indicates the accuracy. A valid measurement reflects only the characteristics of interest and random error.</p>
+                    
+                    <div class="method-card">
+                        <h4>Definitions:</h4>
+                        <p><strong>Seltiz:</strong> "Validity of measuring instrument is defined as the property of a measure that allows the researcher to say that the instrument measures what he says measures."</p>
+                        <p style="margin-top: 1rem;"><strong>Hatt & Goode:</strong> "A scale possesses its validity when it actually measures what it claims to measures."</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>Classification of Validity:</h4>
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <h4>Content Validity</h4>
+                                <p>Ensures measuring tools include adequate and representative set of items. Also called face validity.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4>Construct Validity</h4>
+                                <p>Agreement between theoretical concept and specific measuring device. Two types: Convergent and Discriminant.</p>
+                            </div>
+                            <div class="feature-item">
+                                <h4>Criteria Related Validity</h4>
+                                <p>Helps predict certain possibility. Must be reliable, relevant, free from bias, and available.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>II. Reliability</h3>
+                    <p>A measurement device is reliable when it will produce consistent result about the same result when applied to the same sample or to different samples of the same size taken from the same population.</p>
+                    
+                    <div class="highlight-box">
+                        <h4>Qualities of Reliability:</h4>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li><strong>Stability:</strong> Stable and consistent result with same instrument on same sample</li>
+                            <li><strong>Equivalency:</strong> Different tests give equivalent results</li>
+                            <li><strong>Internal Consistency:</strong> Similar instruments produce highly correlated responses</li>
+                        </ul>
+                    </div>
+
+                    <div class="method-card">
+                        <h4>Measurements of Reliability:</h4>
+                        <p><strong>a. Test-Retest Method:</strong> Use same instrument multiple times on same sample and compare correlation.</p>
+                        <p style="margin-top: 1rem;"><strong>b. Alternative/Parallel Forms:</strong> Develop two or more forms for same sample and compare results.</p>
+                        <p style="margin-top: 1rem;"><strong>c. Split Half Method:</strong> Divide instrument into two halves (odd/even or randomly) and compare correlation.</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>III. Practicability</h3>
+                    <p>Instrument used to measure the attitude of people must be applicable in real practice.</p>
+                    
+                    <div class="highlight-box">
+                        <h4>Qualities:</h4>
+                        <ul style="margin-left: 1.5rem; line-height: 2;">
+                            <li><strong>Economic:</strong> Select design within budget, reduce expenditures</li>
+                            <li><strong>Convenience:</strong> Select nearby field, not difficult places</li>
+                            <li><strong>Interpretable:</strong> Easy to demonstrate and describe data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCALING SECTION -->
+        <div id="scaling" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">⚖️</span>Concept of Scaling</h2>
+                
+                <div class="definition-box">
+                    <h3>What is a Scale?</h3>
+                    <p>A scale is a <strong>tool or mechanism</strong> by which individuals are distinguished on the variables of interest in our study.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span>Types of Scales</h2>
+                
+                <div class="variable-box">
+                    <h3><span class="emoji">1️⃣</span> Nominal Scale</h3>
+                    <p>A scale is called nominal in which subjects are assigned to certain groups or categories. It provides the basic information to obtain the personal or individual data.</p>
+                    <div class="scale-example">
+                        <h4>Examples:</h4>
+                        <p><strong>Gender:</strong> Male, Female, Other</p>
+                        <p><strong>Department:</strong> Administration, Account, Sales</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3><span class="emoji">2️⃣</span> Ordinal Scale</h3>
+                    <p>A scale is called ordinal if it assigns an order or some characteristics to rate its degree of the difference.</p>
+                    <div class="scale-example">
+                        <h4>Example 1 - Jobs by Social Rank:</h4>
+                        <p>1. Doctor &nbsp;&nbsp; 2. Manager &nbsp;&nbsp; 3. Engineer &nbsp;&nbsp; 4. Lawyer &nbsp;&nbsp; 5. Civil Servant</p>
+                        <h4 style="margin-top: 1rem;">Example 2 - Cities by Ranking:</h4>
+                        <p>1. Kathmandu &nbsp;&nbsp; 2. Biratnagar &nbsp;&nbsp; 3. Pokhara &nbsp;&nbsp; 4. Birjung &nbsp;&nbsp; 5. Nepalgunj</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3><span class="emoji">3️⃣</span> Interval Scale</h3>
+                    <p>A scale is called interval if data is kept in form ordinal but it is arranged in an interval.</p>
+                    <div class="scale-example">
+                        <h4>Example - Age Groups:</h4>
+                        <table style="width: 100%; margin-top: 1rem;">
+                            <tr style="background: #f5576c; color: white;">
+                                <th style="padding: 0.5rem;">Ages</th>
+                                <th style="padding: 0.5rem;">No of Kids</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem;">0-10</td>
+                                <td style="padding: 0.5rem;">1</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem;">10-20</td>
+                                <td style="padding: 0.5rem;">5</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.5rem;">20-30</td>
+                                <td style="padding: 0.5rem;">4</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3><span class="emoji">4️⃣</span> Ratio Scale</h3>
+                    <p>A scale is called ratio scale if data is kept from the absolute zero and increased in the order.</p>
+                    <div class="scale-example">
+                        <h4>Examples:</h4>
+                        <p>Length, Breadth, Number of kids, Mass of body, etc.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Key Feature:</strong> All are started from absolute zero and increases in order.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ATTITUDE SCALES SECTION -->
+        <div id="attitude" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">💭</span>Attitude Measurement</h2>
+                
+                <div class="definition-box">
+                    <h3>What is Attitude Measurement?</h3>
+                    <p>Attitude of a person is dependent on the culture, sociological behavior and personal development. A reaction made by a person over any event or any other thing is his/her attitude. Measuring such phenomenon existed in man is very difficult but is necessary to find in our practice.</p>
+                    <p style="margin-top: 1rem;"><strong>Definition:</strong> It is a process of converting qualitative data to quantitative forms.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>Process for Developing New Scale:</h3>
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <p>Specify the domain of the construct</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <p>Creating sample</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <p>Collecting data and information</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <p>Purifying measures</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <p>Assessing the reliability</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">6</div>
+                            <p>Assessing the validity</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">7</div>
+                            <p>Basic norms are developed</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">8</div>
+                            <p>New tool is developed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🛠️</span>Techniques for Developing Attitude Scale</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="emoji">1️⃣</div>
+                        <h3>Choice</h3>
+                        <p>Make best alternatives while making questionnaire for proper choices</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">2️⃣</div>
+                        <h3>Ranking</h3>
+                        <p>Give alternative choices to make their ranks as priorities</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">3️⃣</div>
+                        <h3>Rating</h3>
+                        <p>Give alternatives and respondent chooses their own options</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">4️⃣</div>
+                        <h3>Sorting</h3>
+                        <p>Give different alternatives and ask to keep them in order</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📐</span>Scales Construction for Attitude Measurement</h2>
+                
+                <div class="variable-box">
+                    <h3>I. Arbitrary Scale</h3>
+                    <p>If a researcher thinks about the completely new matter and uses his own scale to measure the attitude of people then this type of scale is called arbitrary scale.</p>
+                    <div class="highlight-box">
+                        <p><strong>Important:</strong> Researcher must be able to prove the validity and reliability of the scale and the measurement used. Normally used in social science.</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>II. Summated Rating Scale / Likert Scale</h3>
+                    <p>This scale was developed by Rensis Likert in 1962. According to him, degree of the agreement and disagreement with the given series of the statement is measured by making a series of the alternative.</p>
+                    
+                    <div class="scale-example">
+                        <h4>Example:</h4>
+                        <p><strong>Question:</strong> Are you satisfied with the structural organization?</p>
+                        <table style="width: 100%; margin-top: 1rem; text-align: center;">
+                            <tr style="background: #f5576c; color: white;">
+                                <th>1</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                                <th>5</th>
+                            </tr>
+                            <tr>
+                                <td>Fully Disagree</td>
+                                <td>Disagree</td>
+                                <td>Undecided</td>
+                                <td>Agree</td>
+                                <td>Fully Agree</td>
+                            </tr>
+                        </table>
+                        <p style="margin-top: 1rem;"><strong>Note:</strong> Likert Scales can have 5, 7, or 9 options depending on condition.</p>
+                    </div>
+
+                    <div class="method-card">
+                        <h4>Construction Procedures:</h4>
+                        <ol style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Collect many statements relevant to the attitude</li>
+                            <li>Collect questionnaires to measure similar concept</li>
+                            <li>Change statements to proper questions</li>
+                            <li>Collect responses in options of 5, 7 or 9</li>
+                            <li>Add scores individually and calculate sum</li>
+                            <li>Include only statements that correlate with total test</li>
+                            <li>Calculate resultant scores and make final evaluation</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>III. Differential Rating Scale / Thurstone Scale</h3>
+                    <p>This approach was developed by L.L. Thurstone. This method selects the items made by panel of judges who evaluate the items and they are relevant to the topic.</p>
+                    
+                    <div class="method-card">
+                        <h4>Procedures:</h4>
+                        <ol style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Make many descriptions related to the concept</li>
+                            <li>Present statements to panel of judges in ascending/descending order</li>
+                            <li>Remove disagreed items from panel</li>
+                            <li>Calculate mean from respondents' answers</li>
+                            <li>Remove long, unclear and non-related descriptions</li>
+                            <li>Arrange agree/disagree series with all possibilities</li>
+                            <li>Fix number for each view and calculate</li>
+                        </ol>
+                    </div>
+
+                    <div class="scale-example">
+                        <h4>Example - Employees' Attitude:</h4>
+                        <table style="width: 100%; margin-top: 1rem;">
+                            <tr style="background: #f5576c; color: white;">
+                                <th>Statement</th>
+                                <th>Score</th>
+                            </tr>
+                            <tr>
+                                <td>I am satisfied with this organization</td>
+                                <td>8.5</td>
+                            </tr>
+                            <tr>
+                                <td>If I leave this organization, I face problem</td>
+                                <td>7.5</td>
+                            </tr>
+                            <tr>
+                                <td>Working environment is good</td>
+                                <td>4.6</td>
+                            </tr>
+                            <tr>
+                                <td>Rules and regulations are clear</td>
+                                <td>6.2</td>
+                            </tr>
+                        </table>
+                        <p style="margin-top: 1rem;"><strong>Example Calculation:</strong> If statements 1 and 3 are ticked: Average = (8.5 + 4.6)/2 = 6.5</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>IV. Cumulative Rating Scale / Guttman Scale</h3>
+                    <p>This scale was developed by Louis Guttman. A scalogram is made with the help of the statement derived and agree or disagree is cumulated.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Assumption:</strong> If one replies favorable to statement #5, then he/she is in favor of #1, 2, 3, and 4. If unfavorable on #3, then also unfavorable on #1 and #2.</p>
+                    </div>
+
+                    <div class="method-card">
+                        <h4>Construction Steps:</h4>
+                        <ol style="margin-left: 1.5rem; line-height: 2;">
+                            <li>Selection of clear statements to be presented</li>
+                            <li>Pre-test on sample of around 100 people</li>
+                            <li>More than 80 people must give opinion</li>
+                            <li>Arrange statements based on high/low response</li>
+                            <li>Remove unclear responses</li>
+                            <li>Calculate coefficient of reproducibility: (1 - No of errors) / No of responses (must be 0.90 or higher)</li>
+                            <li>Assess value based on favorable answers</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUSINESS SCALES SECTION -->
+        <div id="business-scales" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span>Scales Commonly Used in Business Research</h2>
+                
+                <div class="variable-box">
+                    <h3>1. Likert Scale</h3>
+                    <p>Used to measure attitude norms, values and behaviors of respondent. Shows the real opinion of the respondent.</p>
+                    <div class="scale-example">
+                        <p><strong>Example:</strong> Employees are committed towards the organization.</p>
+                        <ol style="margin-left: 1.5rem;">
+                            <li>Strongly Disagree</li>
+                            <li>Disagree</li>
+                            <li>Undecided</li>
+                            <li>Agree</li>
+                            <li>Strongly Agree</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>2. Graphic Rating Scale</h3>
+                    <p>Researchers are asked to indicate their response to a particular question by placing a mark on the level to express their opinion.</p>
+                    <div class="scale-example">
+                        <p style="text-align: center; font-weight: bold;">10 - Excellent<br>⋮<br>5 - All right<br>⋮<br>0 - Very Bad</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>3. Itemized Rating Scale</h3>
+                    <p>Researcher provides a category of responses out of which they select the best out of the options.</p>
+                    <div class="scale-example">
+                        <p><strong>Example:</strong> How do you rate your interest in changing organization's policies?</p>
+                        <ul style="margin-left: 1.5rem;">
+                            <li>a. Too poor</li>
+                            <li>b. Not at all</li>
+                            <li>c. Somewhat well</li>
+                            <li>d. Very well</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>4. Ranking Order Rating Scale</h3>
+                    <p>Respondents are asked to write the ranks as their priority giving ordinal number on the given blank places.</p>
+                    <div class="scale-example">
+                        <p><strong>Example:</strong> Which mobile brand do you like most? Write ranks from 1 to 5.</p>
+                        <p style="margin-top: 0.5rem;">Samsung ______</p>
+                        <p>Nokia ______</p>
+                        <p>Huawei ______</p>
+                        <p>Apple ______</p>
+                        <p>Oppo ______</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>5. Semantic Differential Scale</h3>
+                    <p>A seven points rating scale having two end points associated with the bipolar levels. Options must be in certain order (ascending or descending).</p>
+                    <div class="scale-example">
+                        <p><strong>Example:</strong> Management of Nabil Bank is...</p>
+                        <table style="width: 100%; margin-top: 1rem; text-align: center;">
+                            <tr style="background: #f5576c; color: white;">
+                                <th>Best</th>
+                                <th>Better</th>
+                                <th>Good</th>
+                                <th>Normal</th>
+                                <th>Weak</th>
+                                <th>Weaker</th>
+                                <th>Worst</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📝</span>Other Simple Scales</h2>
+                
+                <div class="variable-box">
+                    <h3>a. Simple Category Questions</h3>
+                    <p>Either agree or disagree, yes or no, important or unimportant. Just two options only.</p>
+                    <div class="scale-example">
+                        <p><strong>Example 1:</strong> Do you like monarchism?</p>
+                        <p>a. Yes &nbsp;&nbsp; b. No</p>
+                        <p style="margin-top: 1rem;"><strong>Example 2:</strong> New policy is changing benefits. Do you agree?</p>
+                        <p>a. Agree &nbsp;&nbsp; b. Disagree</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>b. Multiple Choice Questions</h3>
+                    <p>We want to take the one which is liked by the respondent within the given choices. Normally four options are given and ask to tick one. Most common in practice.</p>
+                    <div class="scale-example">
+                        <p><strong>Example:</strong> Which brand of carpet do you like?</p>
+                        <p>a. Tarace &nbsp;&nbsp; b. Yeti &nbsp;&nbsp; c. Taitenic &nbsp;&nbsp; d. Belgium</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>c. Open End Questions</h3>
+                    <p>Special type of question in which space is provided to respondent to express opinion freely. Measures the depth of knowledge or real understanding.</p>
+                    <div class="scale-example">
+                        <p><strong>Example:</strong> What do you think about the geo-politics between Nepal and India?</p>
+                        <p>_________________________________________________</p>
+                        <p>_________________________________________________</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">⚠️</span>Sources of Measurement Problems</h2>
+                
+                <div class="error-box">
+                    <h3>1. Problems Related to Respondent</h3>
+                    <p>Sometimes respondents may not say the reality due to less knowledge, tiredness, less understanding or hesitation.</p>
+                </div>
+
+                <div class="error-box">
+                    <h3>2. Problems Related to Measurer</h3>
+                    <p>Researcher may make mistakes in making questions, collecting data, interrupting while answering, giving less importance, statistical mistake, analytical mistake and interpreting data.</p>
+                </div>
+
+                <div class="error-box">
+                    <h3>3. Problems Related to Situation</h3>
+                    <p>Respondent must not be disturbed. If manager comes nearby while respondent is talking about manager, reality will not come. Respondent must be fully confident that secrecy will remain secret.</p>
+                </div>
+
+                <div class="error-box">
+                    <h3>4. Problems Related to Instrument</h3>
+                    <p>Researcher may make mistake while making the instrument. If answer is mistake then result will certainly be mistake. Must care about level of the respondent and words used.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAMPLING SECTION -->
+        <div id="sampling" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🎯</span>Population and Sample</h2>
+                
+                <div class="definition-box">
+                    <h3>Population</h3>
+                    <p>Population is the <strong>entire collection of all observations</strong> of the interest defined by a researcher, which may be people, objects or events or entire groups assumed for the deep study.</p>
+                </div>
+
+                <div class="definition-box">
+                    <h3>Sample</h3>
+                    <p>A <strong>representative part of the population</strong> taken for the deep study is called sample.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🎯</span>Reasons for Selecting Sample</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="emoji">💰</div>
+                        <h3>Minimize Cost</h3>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">🎯</div>
+                        <h3>More Accurate Result</h3>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">✅</div>
+                        <h3>Easy Data Collection</h3>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">🚀</div>
+                        <h3>Remove Impossibility</h3>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">🔍</div>
+                        <h3>Easy Investigation</h3>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">⏰</div>
+                        <h3>Complete on Time</h3>
+                    </div>
+                    <div class="feature-item">
+                        <div class="emoji">🎈</div>
+                        <h3>Avoid Complications</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📊</span>Factors Affecting Sample Size</h2>
+                
+                <div class="method-card">
+                    <h3>1. Homogeneity/Heterogeneity of Universe</h3>
+                    <p>If comparative similarity exists among groups, sample may represent homogeneous character. If nature varies, sample should be large.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>2. Nature of Classes Proposed</h3>
+                    <p>If we need to form large number of classes in population, sample size will be large. Less classes means smaller sample size.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>3. Nature of Study</h3>
+                    <p>In-depth study needs small sample. More time and expenses required. Nature of sample must be made easy to handle.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>4. Practical Consideration</h3>
+                    <p>Time and resources determine sample size. More samples need more time and expenses. Must make it practical.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>5. Standard of Accuracy</h3>
+                    <p>A small but properly selected sample can give better result. If required accuracy is high, large sample size is better.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>6. Nature of Cases to be Contacted</h3>
+                    <p>If cases are geographically dispersed and chances of refusal are high, sample size should be large.</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>7. Type of Sampling Used</h3>
+                    <p>Absolute random sampling requires large sample. Stratified sampling can achieve reliability with smaller sample if stratification is proper.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🔄</span>Sampling Process</h2>
+                
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h3>Define the Population</h3>
+                            <p>Define people, age, gender, income, education, behavior etc. under certain demographically specified area.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h3>Specify the Sampling Frame</h3>
+                            <p>Frame is a list of elements from which sample is drawn. Get full, accurate and updated list of all units.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div>
+                            <h3>Specify Sample Unit</h3>
+                            <p>Choose a sampling unit that represents every character of population. May be geographical unit like state, district, municipality, village or ward.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div>
+                            <h3>Determine Sample Size</h3>
+                            <p>Number of items to be selected. Should be optimal - not excessively large nor too small. Must fulfill requirements of efficiency, representativeness, reliability.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">5</div>
+                        <div>
+                            <h3>Prepare Plan for Sampling</h3>
+                            <p>Formulate plan to make sampling well managed. Sampling plan provides guidelines to operationalize the sampling design and size.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">6</div>
+                        <div>
+                            <h3>Select the Sample</h3>
+                            <p>Selected sample should represent population and be useful to attain goal of research. Must be properly representative for generalization.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAMPLING TYPES SECTION -->
+        <div id="sampling-types" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">📋</span>Types of Sampling</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-item" style="grid-column: span 1;">
+                        <div class="emoji" style="font-size: 3rem;">🎲</div>
+                        <h3>Probability Sampling</h3>
+                        <p>Every element has equal chance to be selected</p>
+                    </div>
+                    <div class="feature-item" style="grid-column: span 1;">
+                        <div class="emoji" style="font-size: 3rem;">🎯</div>
+                        <h3>Non-Probability Sampling</h3>
+                        <p>Pre-planned selection, no equal chance</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🎲</span>I. Probability Sampling</h2>
+                
+                <div class="variable-box">
+                    <h3>a. Simple Random Sampling</h3>
+                    <p>A sampling method in which every element has equal chance to be selected as a sample. Selection may be dependent on incident and no one can estimate which element will be selected.</p>
+                    <div class="highlight-box">
+                        <p><strong>Methods:</strong> Lottery, random number set, computerized lottery, etc.</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>b. Systematic Sampling</h3>
+                    <p>One item is selected at random and then K<sup>th</sup> interval is obtained to find next items.</p>
+                    <div class="scale-example">
+                        <p><strong>Formula:</strong> K = Size of population (N) / Size of sample (n)</p>
+                        <p style="margin-top: 1rem;"><strong>Example:</strong> Bank has 600 employees. Want 10% sample.</p>
+                        <p>K = 600/10 = 60 samples needed</p>
+                        <p>If random number is 6, then: 6, 66, 126, 186... (60 participants)</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>c. Stratified Sampling</h3>
+                    <p>Take a combination of different groups of population having different nature and representatives are taken from each group under prescribed ratio or proportion.</p>
+                    <div class="highlight-box">
+                        <p><strong>Strata:</strong> Overlapping homogeneous groups present in population (by age, sex, qualification, employment, etc.)</p>
+                        <p style="margin-top: 0.5rem;"><strong>Proportionate:</strong> Selection in same proportion</p>
+                        <p><strong>Disproportionate:</strong> Selection with less or more in sub-groups</p>
+                    </div>
+                    <div class="scale-example">
+                        <h4>Example - Babil Bank Managers Meet:</h4>
+                        <table style="width: 100%; margin-top: 1rem;">
+                            <tr style="background: #f5576c; color: white;">
+                                <th>Level</th>
+                                <th>Total</th>
+                                <th>Proportionate</th>
+                                <th>Disproportionate</th>
+                            </tr>
+                            <tr>
+                                <td>High</td>
+                                <td>20</td>
+                                <td>2</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>Middle</td>
+                                <td>30</td>
+                                <td>3</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Low</td>
+                                <td>50</td>
+                                <td>5</td>
+                                <td>3</td>
+                            </tr>
+                            <tr style="font-weight: bold;">
+                                <td>Total</td>
+                                <td>100</td>
+                                <td>10</td>
+                                <td>10</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>d. Cluster Sampling</h3>
+                    <p>Cluster is a heterogeneous group in the population and can be considered as small population. A sampling is called cluster sampling if a cluster is randomly selected having all elements of the population.</p>
+                    <div class="highlight-box">
+                        <p><strong>Use Case:</strong> Normally done for large population when difficult to reach each unit or element. Makes easy and convenient to collect data from wide range.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">🎯</span>II. Non-Probability Sampling</h2>
+                
+                <div class="definition-box">
+                    <h3>Characteristics:</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Researcher makes proper pre-plan to choose sample</li>
+                        <li>No equal chance of selecting sample</li>
+                        <li>Low cost method</li>
+                        <li>Consumes less time</li>
+                        <li>Needs less effort</li>
+                        <li>May be full of bias</li>
+                        <li>Normally cannot be generalized to total population</li>
+                    </ul>
+                </div>
+
+                <div class="variable-box">
+                    <h3>a. Purposive/Judgmental Sampling</h3>
+                    <p>Researcher selects the unit or element or sample himself/herself to fulfill his/her objective. Economic and used by expert researchers.</p>
+                    <div class="scale-example">
+                        <p><strong>Example:</strong> Effectiveness of bank training is to be evaluated. Researcher takes data from participants who were present in training by asking them to fill form or seeing them in field whether they use learnt matter.</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>b. Quota Sampling</h3>
+                    <p>Heterogeneous samples present in population taken as groups based on different nature, features and qualities, and one is taken from each category fixing quota.</p>
+                    <div class="scale-example">
+                        <h4>Example - Students Using Different SIMs:</h4>
+                        <table style="width: 100%; margin-top: 1rem;">
+                            <tr style="background: #f5576c; color: white;">
+                                <th>Service Provider</th>
+                                <th>12-16yrs</th>
+                                <th>16-18yrs</th>
+                                <th>18-20yrs</th>
+                                <th>Total</th>
+                            </tr>
+                            <tr>
+                                <td>NTC</td>
+                                <td>50 (5)</td>
+                                <td>150 (4)</td>
+                                <td>100 (3)</td>
+                                <td>300 (12)</td>
+                            </tr>
+                            <tr>
+                                <td>Ncell</td>
+                                <td>40 (7)</td>
+                                <td>60 (2)</td>
+                                <td>100 (6)</td>
+                                <td>200 (15)</td>
+                            </tr>
+                            <tr>
+                                <td>Smart</td>
+                                <td>50 (7)</td>
+                                <td>30 (2)</td>
+                                <td>20 (3)</td>
+                                <td>100 (12)</td>
+                            </tr>
+                            <tr style="font-weight: bold;">
+                                <td>Total</td>
+                                <td>140 (19)</td>
+                                <td>240 (8)</td>
+                                <td>220 (12)</td>
+                                <td>600 (39)</td>
+                            </tr>
+                        </table>
+                        <p style="margin-top: 1rem;">Quota fixed at 39 persons selected from 600 students</p>
+                    </div>
+                </div>
+
+                <div class="variable-box">
+                    <h3>c. Convenience/Accidental Sampling</h3>
+                    <p>Researcher selects units as sample on basis of convenience. Done for easiness taking samples nearby. Not much reliable, normally done for pre-testing questionnaire. Low cost and less time consuming.</p>
+                </div>
+
+                <div class="variable-box">
+                    <h3>d. Self-Selecting Sampling</h3>
+                    <p>Researcher gives information through media to respondent and respondents provide information to the media.</p>
+                </div>
+
+                <div class="variable-box">
+                    <h3>e. Snow Ball/Reference Sampling</h3>
+                    <p>Researcher starts from one sample and taking reference from him/her, next is chosen. The next one gives reference to next again in a continuous chain. Number of respondents increases according to necessity.</p>
+                    <div class="scale-example">
+                        <p><strong>Example:</strong> Police investigation in a murder done by unknown person in a gang fight.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ERRORS SECTION -->
+        <div id="errors" class="section">
+            <div class="card">
+                <h2 class="card-title"><span class="icon">⚠️</span>Sampling Error</h2>
+                
+                <div class="definition-box">
+                    <h3>What is Sampling Error?</h3>
+                    <p>A sampling error is an error which is made in selecting samples that are not representative of the population. It is the difference between the sample value and true value of the population mean.</p>
+                </div>
+
+                <div class="error-box">
+                    <h3>Common Sampling Errors:</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 2;">
+                        <li><strong>1. Population Specification Error:</strong> Due to less understanding of who should be surveyed (e.g., Father instead of child)</li>
+                        <li><strong>2. Sample Frame Error:</strong> Using wrong frame (e.g., phone list for those who don't use phones)</li>
+                        <li><strong>3. Selection Error:</strong> Selected sample is not available</li>
+                        <li><strong>4. Non Response:</strong> Respondent does not speak</li>
+                        <li><strong>5. Error in Taking Sample:</strong> Too large or too small sample size and population</li>
+                    </ul>
+                </div>
+
+                <div class="method-card">
+                    <h3>Methods to Minimize Sampling Errors:</h3>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="emoji">📈</div>
+                            <h3>Increasing Sample Size</h3>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">✅</div>
+                            <h3>Cross Check</h3>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">⚖️</div>
+                            <h3>Unbiased Sampling</h3>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">🎯</div>
+                            <h3>Appropriate Sample Design</h3>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">📝</div>
+                            <h3>Clear Questionnaire</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span class="icon">❌</span>Non-Sampling Errors</h2>
+                
+                <div class="definition-box">
+                    <h3>What are Non-Sampling Errors?</h3>
+                    <p>Errors except the selection of the sample are called non-sampling errors.</p>
+                </div>
+
+                <div class="error-box">
+                    <h3>Such Errors May Related To:</h3>
+                    <ul style="margin-left: 1.5rem; line-height: 2;">
+                        <li>a. Planning</li>
+                        <li>b. Execution of the survey</li>
+                        <li>c. Collection of data</li>
+                        <li>d. Analysis of the data</li>
+                        <li>e. Wrong selection of the question</li>
+                        <li>f. Wrong understanding of the respondent</li>
+                        <li>g. Wrong method used in research</li>
+                    </ul>
+                </div>
+
+                <div class="error-box">
+                    <h3>Major Errors on Non-Sampling:</h3>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Error of poor sampling design</li>
+                        <li>Over and under coverage</li>
+                        <li>Miss-interpretation</li>
+                        <li>Processing error</li>
+                        <li>Errors of research</li>
+                        <li>Respondent related errors</li>
+                        <li>Measuring errors</li>
+                    </ol>
+                </div>
+
+                <div class="method-card">
+                    <h3>Methods of Minimizing Non-Sampling Errors:</h3>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="emoji">✅</div>
+                            <h3>Proper Checking</h3>
+                            <p>Of sampling process</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">📝</div>
+                            <h3>Proper Preparation</h3>
+                            <p>Of questionnaire</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">🔬</div>
+                            <h3>Pilot Survey</h3>
+                            <p>Test before main survey</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">📋</div>
+                            <h3>Fixing Procedures</h3>
+                            <p>Clear guidelines</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">👥</div>
+                            <h3>Competent Manpower</h3>
+                            <p>Use skilled personnel</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">🎓</div>
+                            <h3>Use of Expert</h3>
+                            <p>Consult specialists</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">📚</div>
+                            <h3>Providing Training</h3>
+                            <p>Train data collectors</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="emoji">🔍</div>
+                            <h3>Checking Analysis</h3>
+                            <p>Data processing & analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            const pills = document.querySelectorAll('.nav-pill');
+            pills.forEach(pill => {
+                pill.classList.remove('active');
+            });
+
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
